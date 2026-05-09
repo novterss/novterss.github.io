@@ -1,4 +1,4 @@
-﻿// LANGUAGE SYSTEM
+// language toggle
 let currentLang = 'en';
 
 function applyLang(lang) {
@@ -13,9 +13,9 @@ document.getElementById('langToggle').addEventListener('click', () => {
   applyLang(currentLang === 'en' ? 'th' : 'en');
 });
 
-// TYPEWRITER
+// typewriter effect
 const roles = ['CS Student', 'Web Developer', 'Project Builder'];
-const rolesth = ['à¸™à¸±à¸à¸¨à¸¶à¸à¸©à¸² CS', 'à¸™à¸±à¸à¸žà¸±à¸’à¸™à¸²à¹€à¸§à¹‡à¸š', 'à¸œà¸¹à¹‰à¸ªà¸£à¹‰à¸²à¸‡à¹‚à¸›à¸£à¹€à¸ˆà¸à¸•à¹Œ'];
+const rolesth = ['นักศึกษา CS', 'นักพัฒนาเว็บ', 'ผู้สร้างโปรเจกต์'];
 let roleIndex = 0;
 let charIndex = 0;
 let deleting = false;
@@ -44,13 +44,13 @@ function typeLoop() {
 }
 typeLoop();
 
-// NAVBAR SCROLL
+// navbar scroll
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 20);
 });
 
-// MOBILE MENU
+// mobile menu
 const menuBtn = document.getElementById('menuToggle');
 const navLinks = document.getElementById('navLinks');
 menuBtn.addEventListener('click', () => {
@@ -60,7 +60,7 @@ navLinks.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
 
-// SMOOTH SCROLL
+// smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const target = document.querySelector(a.getAttribute('href'));
@@ -71,7 +71,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// FADE-IN ON SCROLL
+// fade in on scroll
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.12 });
@@ -81,7 +81,7 @@ document.querySelectorAll('.about-card, .about-stats-row, .interests-block, .bio
   observer.observe(el);
 });
 
-// ACTIVE NAV HIGHLIGHT
+// active nav highlight
 const sections = document.querySelectorAll('section[id]');
 window.addEventListener('scroll', () => {
   let current = '';
@@ -94,7 +94,7 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// CURRENTLY BUILDING
+// currently building status
 function updateNowStatus() {
   const now = new Date();
   const statusEl = document.getElementById('nowStatus');
@@ -105,16 +105,16 @@ function updateNowStatus() {
   const phase1End = new Date(2026, 4, 6);
   const phase2End = new Date(2026, 4, 10);
   if (now < phase1End) {
-    statusEl.textContent = lang === 'th' ? 'à¹€à¸•à¸£à¸µà¸¢à¸¡à¸•à¸±à¸§à¸ªà¸­à¸š Final ðŸ“š' : 'Preparing for Final Exams ðŸ“š';
-    subEl.textContent    = lang === 'th' ? 'à¸ªà¸­à¸šà¸§à¸±à¸™à¸—à¸µà¹ˆ 6 à¸ž.à¸„. à¸™à¸µà¹‰ â€” à¸‚à¸­à¹ƒà¸«à¹‰à¹‚à¸Šà¸„à¸”à¸µà¸”à¹‰à¸§à¸¢à¸™à¸°!' : 'Exams on May 6 â€” wish me luck!';
+    statusEl.textContent = lang === 'th' ? 'เตรียมตัวสอบ Final 📚' : 'Preparing for Final Exams 📚';
+    subEl.textContent    = lang === 'th' ? 'สอบวันที่ 6 พ.ค. นี้ — ขอให้โชคดีด้วยนะ!' : 'Exams on May 6 — wish me luck!';
     iconEl.innerHTML = '<i class="fas fa-book-open"></i>';
   } else if (now < phase2End) {
-    statusEl.textContent = lang === 'th' ? 'à¸à¸³à¸¥à¸±à¸‡à¸žà¸±à¸’à¸™à¸² Doseries ðŸ’»' : 'Developing Doseries ðŸ’»';
-    subEl.textContent    = lang === 'th' ? 'à¸›à¸£à¸±à¸šà¸›à¸£à¸¸à¸‡à¸Ÿà¸µà¹€à¸ˆà¸­à¸£à¹Œà¹à¸¥à¸°à¸›à¸£à¸°à¸ªà¸´à¸—à¸˜à¸´à¸ à¸²à¸žà¸‚à¸­à¸‡à¹à¸žà¸¥à¸•à¸Ÿà¸­à¸£à¹Œà¸¡' : 'Improving features and performance of the platform';
+    statusEl.textContent = lang === 'th' ? 'กำลังพัฒนา Doseries 💻' : 'Developing Doseries 💻';
+    subEl.textContent    = lang === 'th' ? 'ปรับปรุงฟีเจอร์และประสิทธิภาพของแพลตฟอร์ม' : 'Improving features and performance of the platform';
     iconEl.innerHTML = '<i class="fas fa-code"></i>';
   } else {
-    statusEl.textContent = lang === 'th' ? 'à¸à¸³à¸¥à¸±à¸‡à¸¡à¸­à¸‡à¸«à¸²à¸—à¸µà¹ˆà¸à¸¶à¸à¸‡à¸²à¸™ ðŸ”' : 'Actively Seeking Internship ðŸ”';
-    subEl.textContent    = lang === 'th' ? 'à¸•à¹‰à¸­à¸‡à¸à¸²à¸£à¸›à¸£à¸°à¸ªà¸šà¸à¸²à¸£à¸“à¹Œà¸ˆà¸£à¸´à¸‡à¸”à¹‰à¸²à¸™ Web Development â€” à¸•à¸´à¸”à¸•à¹ˆà¸­à¸¡à¸²à¹„à¸”à¹‰à¹€à¸¥à¸¢!' : 'Looking for hands-on web development experience â€” feel free to reach out!';
+    statusEl.textContent = lang === 'th' ? 'กำลังมองหาที่ฝึกงาน 🔍' : 'Actively Seeking Internship 🔍';
+    subEl.textContent    = lang === 'th' ? 'ต้องการประสบการณ์จริงด้าน Web Development — ติดต่อมาได้เลย!' : 'Looking for hands-on web development experience — feel free to reach out!';
     iconEl.innerHTML = '<i class="fas fa-briefcase"></i>';
   }
 }
@@ -129,12 +129,12 @@ applyLang = lang => {
   if (cvBtn) cvBtn.href = cvBtn.getAttribute('data-cv-' + lang);
 };
 
-// BACK TO TOP
+// back to top
 const btt = document.getElementById('backToTop');
 window.addEventListener('scroll', () => btt.classList.toggle('show', window.scrollY > 400));
 btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// DARK MODE TOGGLE
+// dark mode
 const darkToggleBtn = document.getElementById('darkToggle');
 const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
@@ -156,7 +156,7 @@ darkToggleBtn.addEventListener('click', () => {
   applyTheme(!isDark);
 });
 
-// SCROLL PROGRESS BAR
+// scroll progress
 const progressBar = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
   const scrollTop  = window.scrollY;

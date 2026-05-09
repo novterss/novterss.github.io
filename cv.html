@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV – Naphatcharakan Phatchaiphongsa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #0ea5e9;
+      --accent:  #6366f1;
+      --text:    #0f172a;
+      --mid:     #475569;
+      --light:   #94a3b8;
+      --border:  #e2e8f0;
+      --bg:      #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 14mm 16mm 14mm 16mm;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── Header ── */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 10px;
+      border-bottom: 2.5px solid var(--primary);
+      margin-bottom: 14px;
+      gap: 1rem;
+    }
+    .cv-name-block h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    .cv-name-block .name-th {
+      font-size: 13px;
+      color: var(--mid);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .cv-name-block .tagline {
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 5px;
+    }
+    .cv-contacts {
+      text-align: right;
+      font-size: 11px;
+      color: var(--mid);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .cv-contacts a { color: var(--mid); text-decoration: none; }
+    .cv-contacts span { display: flex; align-items: center; gap: 5px; justify-content: flex-end; }
+
+    /* ── Section ── */
+    .cv-section { margin-bottom: 14px; }
+    .cv-section-title {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Entry ── */
+    .cv-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 1rem;
+    }
+    .cv-entry-left { flex: 1; }
+    .cv-entry-right { text-align: right; white-space: nowrap; }
+
+    .entry-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .entry-sub {
+      font-size: 11px;
+      color: var(--mid);
+      margin-top: 1px;
+    }
+    .entry-period {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--light);
+    }
+    .entry-badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 99px;
+      background: #e0f2fe;
+      color: var(--primary);
+      margin-top: 3px;
+    }
+
+    /* ── Skills grid ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .skill-group-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 4px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .skill-tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .skill-tag.pro  { background: #e0f2fe; border-color: #7dd3fc; color: #0369a1; }
+    .skill-tag.mid  { background: #ede9fe; border-color: #c4b5fd; color: #6d28d9; }
+    .skill-tag.fam  { background: #f1f5f9; border-color: var(--border); color: var(--mid); }
+
+    /* ── Transcript ── */
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .grade-table th {
+      text-align: left;
+      font-weight: 700;
+      font-size: 10px;
+      color: var(--light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0 6px 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .grade-table td {
+      padding: 4px 6px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text);
+    }
+    .grade-table td:last-child {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .gpa-row {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 5px;
+      color: var(--text);
+    }
+    .gpa-row span { color: var(--primary); margin-left: 4px; }
+
+    /* ── Languages ── */
+    .lang-row {
+      display: flex;
+      gap: 16px;
+    }
+    .lang-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+    }
+    .lang-flag { font-size: 16px; }
+    .lang-name { font-weight: 700; color: var(--text); }
+    .lang-level { color: var(--mid); }
+
+    /* ── Projects ── */
+    .proj-entry { margin-bottom: 10px; }
+    .proj-title { font-size: 13px; font-weight: 700; color: var(--text); }
+    .proj-url   { font-size: 10.5px; color: var(--primary); margin-left: 6px; }
+    .proj-desc  { font-size: 11px; color: var(--mid); margin-top: 3px; }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+    .proj-tag   {
+      font-size: 9.5px; font-weight: 600;
+      padding: 1px 7px; border-radius: 6px;
+      background: #f8fafc; border: 1px solid var(--border);
+      color: var(--mid);
+    }
+
+    /* ── Footer ── */
+    .cv-footer {
+      margin-top: 16px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--light);
+      text-align: center;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: #fff; }
+      .page {
+        width: 100%;
+        margin: 0;
+        padding: 10mm 14mm;
+        box-shadow: none;
+      }
+      .no-print { display: none !important; }
+      a { color: inherit !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Print button (hidden when printing) -->
+<div class="no-print" style="text-align:center;padding:1rem 0;background:#f1f5f9;border-bottom:1px solid #e2e8f0;">
+  <button onclick="window.print()"
+    style="background:#0ea5e9;color:#fff;border:none;padding:0.6rem 1.8rem;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">
+    🖨️ Print / Save as PDF
+  </button>
+  <p style="margin-top:0.4rem;font-size:12px;color:#64748b;">
+    กด <strong>Ctrl+P</strong> → เลือก <strong>"Save as PDF"</strong> → บันทึกเป็น <code>cv.pdf</code>
+  </p>
+</div>
+
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <header class="cv-header">
+    <div class="cv-name-block">
+      <h1>Naphatcharakan Phatchaiphongsa</h1>
+      <div class="name-th">ณพัชรกัณฑ์ พัชญ์ชัยพงศา &nbsp;·&nbsp; Nickname: Kan</div>
+      <div class="tagline">Computer Science Student &nbsp;·&nbsp; Web Developer &nbsp;·&nbsp; Seeking Internship</div>
+    </div>
+    <div class="cv-contacts">
+      <span>📧 <a href="mailto:naphatcharakan.p68@gmail.com">naphatcharakan.p68@gmail.com</a></span>
+      <span>📞 <a href="tel:0627905333">062-790-5333</a></span>
+      <span>🐙 <a href="https://github.com/novterss">github.com/novterss</a></span>
+      <span>🎓 Student ID: 6800401</span>
+    </div>
+  </header>
+
+  <!-- ══ OBJECTIVE ══ -->
+  <section class="cv-section">
+    <div class="cv-section-title">Objective</div>
+    <p style="font-size:11.5px;color:#475569;line-height:1.7;">
+      1st-year Computer Science student at Rangsit University with a strong passion for web development.
+      Experienced in building full-stack applications using Next.js, React, TypeScript, and MongoDB.
+      Actively seeking a <strong>web development internship</strong> to gain real-world experience and contribute meaningfully to a development team.
+    </p>
+  </section>
+
+  <!-- ══ SKILLS ══ -->
+  <section class="cv-section">
+    <div class="cv-section-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag pro">HTML5</span>
+          <span class="skill-tag pro">CSS3</span>
+          <span class="skill-tag mid">JavaScript</span>
+          <span class="skill-tag mid">TypeScript</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Frameworks &amp; Libraries</div>
+        <div class="skill-tags">
+          <span class="skill-tag mid">React</span>
+          <span class="skill-tag mid">Next.js 14</span>
+          <span class="skill-tag mid">Tailwind CSS</span>
+          <span class="skill-tag fam">Node.js</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Tools &amp; Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag fam">Git</span>
+          <span class="skill-tag fam">GitHub</span>
+          <span class="skill-tag fam">MongoDB</span>
+          <span class="skill-tag mid">REST APIs</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:7px;font-size:10px;color:#94a3b8;">
+      🟦 Proficient &nbsp; 🟪 Intermediate &nbsp; ⬜ Familiar
+    </div>
+  </section>
+
+  <!-- ══ EDUCATION ══ -->
+  <section class="cv-section">
+    <div class="cv-section-title">Education</div>
+
+    <div class="cv-entry">
+      <div class="cv-entry-left">
+        <div class="entry-title">Bachelor of Science – Computer Science (B.Sc. CS)</div>
+        <div class="entry-sub">Rangsit University, Faculty of Information Technology</div>
+        <div class="entry-sub" style="margin-top:2px;">วท.บ. วิทยาการคอมพิวเตอร์ · มหาวิทยาลัยรังสิต คณะเทคโนโลยีสารสนเทศ</div>
+        <span class="entry-badge">Year 1 · Seeking Internship</span>
+      </div>
+      <div class="cv-entry-right">
+        <div class="entry-period">2024 – Present</div>
+        <div style="font-size:11px;font-weight:700;color:#0ea5e9;margin-top:2px;">GPA 3.83</div>
+      </div>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-entry-left">
+        <div class="entry-title">Upper Secondary – English Programme (EP)</div>
+        <div class="entry-sub">Hat Yai Wittayalai School &nbsp;·&nbsp; โรงเรียนหาดใหญ่วิทยาลัย (English Programme)</div>
+        <span class="entry-badge">Matthayom 5–6 · EP</span>
+      </div>
+      <div class="cv-entry-right">
+        <div class="entry-period">2022 – 2024</div>
+      </div>
+    </div>
+
+    <div class="cv-entry" style="margin-bottom:0;">
+      <div class="cv-entry-left">
+        <div class="entry-title">Secondary – International Programme (IP)</div>
+        <div class="entry-sub">Hat Yai Rattaprachasarn School &nbsp;·&nbsp; โรงเรียนหาดใหญ่รัฐประชาสรรค์ (IP)</div>
+        <span class="entry-badge">Matthayom 1–4 · IP</span>
+      </div>
+      <div class="cv-entry-right">
+        <div class="entry-period">2018 – 2022</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TRANSCRIPT ══ -->
+  <section class="cv-section">
+    <div class="cv-section-title">Academic Transcript — Year 1, Semester 1</div>
+    <table class="grade-table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Subject</th>
+          <th style="text-align:center;">Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>DIT101</td><td>Programming I</td><td>A</td></tr>
+        <tr><td>ENL126</td><td>English in TED</td><td>B</td></tr>
+        <tr><td>MAT133</td><td>Calculus 1</td><td>A</td></tr>
+        <tr><td>MAT252</td><td>Probability and Statistics</td><td>A</td></tr>
+        <tr><td>RSU112</td><td>Sports for Health</td><td>A</td></tr>
+        <tr><td>RSU185</td><td>IT Skills for Professionals</td><td>A</td></tr>
+      </tbody>
+    </table>
+    <div class="gpa-row">Semester GPA: <span>3.83</span></div>
+  </section>
+
+  <!-- ══ PROJECTS ══ -->
+  <section class="cv-section">
+    <div class="cv-section-title">Projects</div>
+
+    <div class="proj-entry">
+      <div>
+        <span class="proj-title">Doseries</span>
+        <a class="proj-url" href="https://www.doseries.top/">doseries.top</a>
+      </div>
+      <div class="proj-desc">
+        A full-stack streaming platform supporting 20+ content providers with Thai subtitle support, real-time search,
+        user authentication (NextAuth.js), watch history tracking, leaderboard, and multi-platform catalog browsing.
+        Deployed on VPS with custom domain.
+      </div>
+      <div class="proj-stack">
+        <span class="proj-tag">Next.js 14</span>
+        <span class="proj-tag">TypeScript</span>
+        <span class="proj-tag">React</span>
+        <span class="proj-tag">MongoDB</span>
+        <span class="proj-tag">NextAuth.js</span>
+        <span class="proj-tag">Tailwind CSS</span>
+        <span class="proj-tag">REST APIs</span>
+      </div>
+    </div>
+
+    <div class="proj-entry" style="margin-bottom:0;">
+      <div>
+        <span class="proj-title">Personal Portfolio Website</span>
+        <a class="proj-url" href="https://github.com/novterss">github.com/novterss</a>
+      </div>
+      <div class="proj-desc">
+        Responsive single-page portfolio built with vanilla HTML, CSS, and JavaScript.
+        Features dark mode, bilingual EN/TH toggle, scroll progress bar, fade-in animations, and full mobile support.
+      </div>
+      <div class="proj-stack">
+        <span class="proj-tag">HTML5</span>
+        <span class="proj-tag">CSS3</span>
+        <span class="proj-tag">JavaScript</span>
+        <span class="proj-tag">Responsive Design</span>
+        <span class="proj-tag">Dark Mode</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LANGUAGES ══ -->
+  <section class="cv-section">
+    <div class="cv-section-title">Language Skills</div>
+    <div class="lang-row">
+      <div class="lang-item">
+        <span class="lang-flag">🇹🇭</span>
+        <span class="lang-name">Thai</span>
+        <span class="lang-level">— Native Speaker</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-flag">🇬🇧</span>
+        <span class="lang-name">English</span>
+        <span class="lang-level">— Advanced (EP graduate)</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-flag">🇮🇹</span>
+        <span class="lang-name">Italian</span>
+        <span class="lang-level">— Intermediate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="cv-footer">
+    Naphatcharakan Phatchaiphongsa &nbsp;·&nbsp; naphatcharakan.p68@gmail.com &nbsp;·&nbsp; 062-790-5333 &nbsp;·&nbsp; github.com/novterss
+  </div>
+
+</div>
+</body>
+</html>

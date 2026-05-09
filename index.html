@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naphatcharakan Phatchaiphongsa | Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Naphatcharakan (Kan) Phatchaiphongsa — 1st-year Computer Science student at Rangsit University, passionate about web development." />
+  <meta name="author" content="Naphatcharakan Phatchaiphongsa" />
+
+  <!-- android tab ja -->
+  <meta name="theme-color" content="#0ea5e9" />
+
+  <!-- og -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://novterss.github.io/" />
+  <meta property="og:title" content="Naphatcharakan (Kan) | CS Student & Web Developer" />
+  <meta property="og:description"
+    content="1st-year CS student at Rangsit University — building real projects and seeking a web development internship." />
+  <meta property="og:image" content="kan.jpg" />
+
+  <!-- card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Naphatcharakan (Kan) | CS Student & Web Developer" />
+  <meta name="twitter:description"
+    content="1st-year CS student at Rangsit University — building real projects and seeking a web development internship." />
+  <meta name="twitter:image" content="kan.jpg" />
+
+  <link rel="icon" type="image/jpeg" href="kan.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- scroll -->
+  <div id="scrollProgress"></div>
+
+  <!-- navbar -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo"><span class="bracket">&lt;</span>Kub<span class="bracket">/&gt;</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="nav-link" data-en="About" data-th="เกี่ยวกับ">About</a></li>
+        <li><a href="#skills" class="nav-link" data-en="Skills" data-th="ทักษะ">Skills</a></li>
+        <li><a href="#projects" class="nav-link" data-en="Projects" data-th="โปรเจกต์">Projects</a></li>
+        <li><a href="#education" class="nav-link" data-en="Education" data-th="การศึกษา">Education</a></li>
+        <li><a href="#languages" class="nav-link" data-en="Languages" data-th="ภาษา">Languages</a></li>
+        <li><a href="#currently-building" class="nav-link" data-en="Now" data-th="ตอนนี้">Now</a></li>
+        <li><a href="#contact" class="nav-link" data-en="Contact" data-th="ติดต่อ">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button id="darkToggle" class="dark-toggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+        <button id="langToggle" class="lang-btn" aria-label="Toggle Language"><i class="fas fa-globe"></i> <span
+            id="langLabel">TH</span></button>
+        <button id="menuToggle" class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="available-badge"><span class="pulse-dot"></span><span data-en="Open for Internship"
+            data-th="พร้อมรับการฝึกงาน">Open for Internship</span></div>
+        <p class="hi-line" data-en="Hello, I'm" data-th="สวัสดีครับ ผม">Hello, I'm</p>
+        <h1 class="hero-name">Naphatcharakan</h1>
+        <h2 class="hero-name-th">ณพัชรกัณฑ์ พัชญ์ชัยพงศา</h2>
+        <div class="typewriter-wrap">
+          <span data-en="I'm a " data-th="ผมเป็น ">I'm a </span>
+          <span class="typewriter" id="typewriter"></span>
+        </div>
+        <p class="hero-desc"
+          data-en="1st-year CS student at Rangsit University — building real projects, learning every day, and looking for hands-on internship experience in web development."
+          data-th="นักศึกษาชั้นปีที่ 1 สาขา CS มหาวิทยาลัยรังสิต — สร้างโปรเจกต์จริง เรียนรู้ทุกวัน และมองหาประสบการณ์ฝึกงานด้าน Web Development">
+          1st-year CS student at Rangsit University — building real projects, learning every day, and looking for
+          hands-on internship experience in web development.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary"><i class="fas fa-code"></i> <span data-en="View Projects"
+              data-th="ดูโปรเจกต์">View Projects</span></a>
+          <a href="#contact" class="btn-outline"><i class="fas fa-envelope"></i> <span data-en="Contact Me"
+              data-th="ติดต่อฉัน">Contact Me</span></a>
+          <a href="Naphatcharakan_Engform.pdf" download id="cvDownloadBtn" class="btn-outline btn-cv"
+            data-cv-en="Naphatcharakan_Engform.pdf" data-cv-th="Naphatcharakan_Thaiform.pdf"><i
+              class="fas fa-file-download"></i> <span data-en="Download CV" data-th="ดาวน์โหลด CV">Download CV</span></a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://github.com/novterss" target="_blank" rel="noopener" aria-label="GitHub" class="social-ic"><i
+              class="fab fa-github"></i></a>
+          <a href="https://instagram.com/kubkannn" target="_blank" rel="noopener" aria-label="Instagram"
+            class="social-ic"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/NaphatcharakanPhatchaiphongsa" target="_blank" rel="noopener"
+            aria-label="Facebook" class="social-ic"><i class="fab fa-facebook"></i></a>
+          <a href="https://t.me/WhoImiItsAboutWhoAsk777" target="_blank" rel="noopener" aria-label="Telegram"
+            class="social-ic"><i class="fab fa-telegram"></i></a>
+          <a href="mailto:naphatcharakan.p68@gmail.com" aria-label="Email" class="social-ic"><i
+              class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="avatar-wrap">
+          <div class="avatar-ring r1"></div>
+          <div class="avatar-ring r2"></div>
+          <div class="avatar-circle">
+            <img src="kan.jpg" alt="Kan" class="avatar-photo" />
+          </div>
+          <div class="float-chip chip-html">HTML</div>
+          <div class="float-chip chip-css">CSS</div>
+          <div class="float-chip chip-js">JS</div>
+          <div class="float-chip chip-next">Next.js</div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line-anim"></div>
+      <span data-en="Scroll down" data-th="เลื่อนลง">Scroll down</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="Get to know me" data-th="รู้จักฉัน">Get to know me</span>
+        <h2 class="sec-title" data-en="About Me" data-th="เกี่ยวกับฉัน">About Me</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-left">
+          <div class="about-card">
+            <div class="about-avatar-sm"><img src="kan.jpg" alt="Kan" class="about-photo" /></div>
+            <div>
+              <div class="about-fullname">ณพัชรกัณฑ์ พัชญ์ชัยพงศา</div>
+              <div class="about-fullname-en">Naphatcharakan Phatchaiphongsa</div>
+              <div class="about-uni"><i class="fas fa-university"></i> Rangsit University</div>
+            </div>
+          </div>
+          <div class="about-stats-row">
+            <div class="stat-box">
+              <div class="stat-n">1st</div>
+              <div class="stat-l" data-en="Year" data-th="ปีการศึกษา">Year</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-n">4</div>
+              <div class="stat-l" data-en="Projects" data-th="โปรเจกต์">Projects</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-n">∞</div>
+              <div class="stat-l" data-en="Curiosity" data-th="ความใฝ่รู้">Curiosity</div>
+            </div>
+          </div>
+          <div class="interests-block">
+            <h4 data-en="Interests" data-th="ความสนใจ">Interests</h4>
+            <div class="interest-tags">
+              <span class="itag"><i class="fas fa-code"></i> <span data-en="Coding"
+                  data-th="เขียนโค้ด">Coding</span></span>
+              <span class="itag"><i class="fas fa-lightbulb"></i> <span data-en="New Ideas" data-th="ไอเดียใหม่">New
+                  Ideas</span></span>
+              <span class="itag"><i class="fas fa-gamepad"></i> <span data-en="Gaming"
+                  data-th="เล่นเกม">Gaming</span></span>
+              <span class="itag"><i class="fas fa-rocket"></i> <span data-en="Building"
+                  data-th="สร้างโปรเจกต์">Building</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="about-right">
+          <p class="bio-p"
+            data-en="Hi, I'm Kan — a 1st-year Computer Science student at Rangsit University. I have a genuine passion for building things on the web. Most of my time is spent in front of the screen — developing projects, exploring new ideas, and occasionally gaming to unwind."
+            data-th="สวัสดีครับ ผมขัน — นักศึกษาชั้นปีที่ 1 สาขาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยรังสิต ผมหลงใหลในการสร้างสิ่งต่างๆ บนโลกเว็บ ส่วนใหญ่ใช้เวลาอยู่หน้าจอ — พัฒนาโปรเจกต์ คิดไอเดียใหม่ๆ และเล่นเกมเพื่อผ่อนคลาย">
+            Hi, I'm <strong>Kan</strong> — a 1st-year Computer Science student at Rangsit University. I have a genuine
+            passion for building things on the web. Most of my time is spent in front of the screen — developing
+            projects, exploring new ideas, and occasionally gaming to unwind.</p>
+          <p class="bio-p"
+            data-en="I'm currently seeking an internship in web development to gain real-world experience. My goal is to build a solid foundation with HTML &amp; CSS first, then expand into databases and back-end systems in the years ahead."
+            data-th="ตอนนี้กำลังมองหาที่ฝึกงานด้าน Web Development เพื่อเก็บเกี่ยวประสบการณ์จริง วางแผนสร้างรากฐานด้วย HTML &amp; CSS ก่อน แล้วขยายไปสู่ด้าน Database และ Back-end ในปีถัดๆ ไป">
+            I'm currently seeking an internship in web development to gain real-world experience. My goal is to build a
+            solid foundation with HTML &amp; CSS first, then expand into databases and back-end systems in the years
+            ahead.</p>
+          <div class="about-info-grid">
+            <div class="info-item"><i class="fas fa-id-card info-icon"></i>
+              <div>
+                <div class="info-label" data-en="Student ID" data-th="รหัสนักศึกษา">Student ID</div>
+                <div class="info-val">6800401</div>
+              </div>
+            </div>
+            <div class="info-item"><i class="fas fa-envelope info-icon"></i>
+              <div>
+                <div class="info-label" data-en="Email" data-th="อีเมล">Email</div>
+                <div class="info-val">naphatcharakan.p68@gmail.com</div>
+              </div>
+            </div>
+            <div class="info-item"><i class="fas fa-phone info-icon"></i>
+              <div>
+                <div class="info-label" data-en="Phone" data-th="โทรศัพท์">Phone</div>
+                <div class="info-val">062-790-5333</div>
+              </div>
+            </div>
+            <div class="info-item"><i class="fab fa-github info-icon"></i>
+              <div>
+                <div class="info-label">GitHub</div>
+                <div class="info-val"><a href="https://github.com/novterss" target="_blank" rel="noopener">novterss</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="mailto:naphatcharakan.p68@gmail.com" class="btn-primary"
+            style="display:inline-flex;margin-top:1.5rem;">
+            <i class="fas fa-paper-plane"></i>
+            <span data-en="Let's Connect" data-th="ติดต่อฉัน">Let's Connect</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section section-alt">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="What I work with" data-th="สิ่งที่ฉันใช้">What I work with</span>
+        <h2 class="sec-title" data-en="Skills" data-th="ทักษะ">Skills</h2>
+      </div>
+      <div class="skills-cats">
+
+        <div class="skill-cat">
+          <h3 class="cat-title"><i class="fas fa-pen-nib"></i> <span data-en="Languages"
+              data-th="ภาษาโปรแกรม">Languages</span></h3>
+          <div class="skill-cards">
+            <div class="skill-card">
+              <div class="skill-icon html-ic"><i class="fab fa-html5"></i></div>
+              <div class="skill-name">HTML5</div>
+              <div class="skill-level level-pro">Proficient</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon css-ic"><i class="fab fa-css3-alt"></i></div>
+              <div class="skill-name">CSS3</div>
+              <div class="skill-level level-pro">Proficient</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon js-ic"><i class="fab fa-js"></i></div>
+              <div class="skill-name">JavaScript</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon ts-ic">TS</div>
+              <div class="skill-name">TypeScript</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="cat-title"><i class="fas fa-layer-group"></i> <span data-en="Frameworks & Libraries"
+              data-th="เฟรมเวิร์คและไลบรารี">Frameworks & Libraries</span></h3>
+          <div class="skill-cards">
+            <div class="skill-card">
+              <div class="skill-icon react-ic"><i class="fab fa-react"></i></div>
+              <div class="skill-name">React</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon next-ic">N</div>
+              <div class="skill-name">Next.js</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon node-ic"><i class="fab fa-node-js"></i></div>
+              <div class="skill-name">Node.js</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon tw-ic">TW</div>
+              <div class="skill-name">Tailwind CSS</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon electron-ic"><i class="fas fa-atom"></i></div>
+              <div class="skill-name">Electron</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="cat-title"><i class="fas fa-tools"></i> <span data-en="Tools & Databases"
+              data-th="เครื่องมือและฐานข้อมูล">Tools & Databases</span></h3>
+          <div class="skill-cards">
+            <div class="skill-card">
+              <div class="skill-icon git-ic"><i class="fab fa-git-alt"></i></div>
+              <div class="skill-name">Git</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon gh-ic"><i class="fab fa-github"></i></div>
+              <div class="skill-name">GitHub</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon mongo-ic">M</div>
+              <div class="skill-name">MongoDB</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon supabase-ic"><i class="fas fa-bolt"></i></div>
+              <div class="skill-name">Supabase</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon api-ic"><i class="fas fa-plug"></i></div>
+              <div class="skill-name">REST APIs</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon vite-ic">⚡</div>
+              <div class="skill-name">Vite</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="cat-title"><i class="fas fa-database"></i> <span data-en="ORM & Databases"
+              data-th="ORM และฐานข้อมูล">ORM & Databases</span></h3>
+          <div class="skill-cards">
+            <div class="skill-card">
+              <div class="skill-icon prisma-ic">▲</div>
+              <div class="skill-name">Prisma</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon pg-ic"><i class="fas fa-database"></i></div>
+              <div class="skill-name">PostgreSQL</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon eslint-ic"><i class="fas fa-check-circle"></i></div>
+              <div class="skill-name">ESLint</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="cat-title"><i class="fas fa-cloud-upload-alt"></i> <span data-en="Deployment & Hosting"
+              data-th="การ Deploy และ Hosting">Deployment & Hosting</span></h3>
+          <div class="skill-cards">
+            <div class="skill-card">
+              <div class="skill-icon vercel-ic">▲</div>
+              <div class="skill-name">Vercel</div>
+              <div class="skill-level level-mid">Intermediate</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon render-ic"><i class="fas fa-server"></i></div>
+              <div class="skill-name">Render</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon cf-ic"><i class="fas fa-shield-alt"></i></div>
+              <div class="skill-name">Cloudflare</div>
+              <div class="skill-level level-fam">Familiar</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section id="languages" class="section">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="Communication" data-th="การสื่อสาร">Communication</span>
+        <h2 class="sec-title" data-en="Language Skills" data-th="ทักษะด้านภาษา">Language Skills</h2>
+      </div>
+      <div class="lang-grid">
+        <div class="lang-card">
+          <div class="lang-flag">🇹🇭</div>
+          <div class="lang-info">
+            <div class="lang-name" data-en="Thai" data-th="ภาษาไทย">Thai</div>
+            <div class="lang-level" data-en="Native Speaker" data-th="ภาษาแม่">Native Speaker</div>
+            <div class="lang-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          </div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-flag">🇬🇧</div>
+          <div class="lang-info">
+            <div class="lang-name" data-en="English" data-th="ภาษาอังกฤษ">English</div>
+            <div class="lang-level" data-en="Advanced" data-th="ขั้นสูง">Advanced</div>
+            <div class="lang-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="far fa-star"></i></div>
+          </div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-flag">🇮🇹</div>
+          <div class="lang-info">
+            <div class="lang-name" data-en="Italian" data-th="ภาษาอิตาลี">Italian</div>
+            <div class="lang-level" data-en="Intermediate" data-th="ระดับกลาง">Intermediate</div>
+            <div class="lang-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="far fa-star"></i><i class="far fa-star"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENTLY BUILDING -->
+  <section id="currently-building" class="section section-alt">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="Right Now" data-th="ตอนนี้">Right Now</span>
+        <h2 class="sec-title" data-en="Currently" data-th="กำลังทำอยู่">Currently</h2>
+      </div>
+      <div class="now-card">
+        <div class="now-pulse"><span class="pulse-dot"></span></div>
+        <div class="now-content">
+          <div class="now-label" data-en="Status" data-th="สถานะ">Status</div>
+          <div class="now-status" id="nowStatus">Loading...</div>
+          <div class="now-sub" id="nowSub"></div>
+        </div>
+        <div class="now-icon" id="nowIcon"><i class="fas fa-laptop-code"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="What I've built" data-th="สิ่งที่ฉันสร้าง">What I've built</span>
+        <h2 class="sec-title" data-en="Projects" data-th="โปรเจกต์">Projects</h2>
+      </div>
+      <div class="project-featured">
+        <div class="proj-card featured-card">
+          <div class="proj-header">
+            <div class="proj-logo-wrap">
+              <img src="doseries.jpg" alt="Doseries Logo" class="proj-logo-img" />
+            </div>
+            <div class="proj-badges">
+              <span class="proj-badge featured-badge" data-en="Featured" data-th="โปรเจกต์หลัก">Featured</span>
+              <span class="proj-badge live-badge"><span class="live-dot"></span>Live</span>
+              <span class="proj-badge users-badge"><i class="fas fa-users"></i> 1,000+</span>
+              <span class="proj-badge ai-badge"><i class="fas fa-robot"></i> <span data-en="AI-Assisted"
+                  data-th="AI ช่วยเขียน">AI-Assisted</span></span>
+            </div>
+          </div>
+          <h3 class="proj-name">Doseries</h3>
+          <p class="proj-desc"
+            data-en="A full-stack streaming platform built with Next.js 14, supporting 40+ streaming platforms with Thai subtitle support, real-time search, user authentication, watch history tracking, and multi-platform catalog browsing."
+            data-th="แพลตฟอร์มสตรีมมิ่งครบวงจรสร้างด้วย Next.js 14 รองรับมากกว่า 40 แพลตฟอร์ม พร้อมซับไตเติ้ลภาษาไทย, ค้นหาแบบ Real-time, ระบบยืนยันตัวตน, ประวัติการดู และเรียกดูแคตตาล็อกหลายแพลตฟอร์ม">
+            A full-stack streaming platform built with Next.js 14, supporting 40+ streaming platforms with Thai subtitle
+            support, real-time search, user authentication, watch history tracking, and multi-platform catalog browsing.
+          </p>
+          <div class="proj-screenshot">
+            <img src="doseriesweb.png" alt="Doseries Screenshot" class="proj-screenshot-img" />
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js 14</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">MongoDB</span>
+            <span class="stack-tag">NextAuth.js</span>
+            <span class="stack-tag">Tailwind CSS</span>
+            <span class="stack-tag">REST APIs</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://www.doseries.top/" target="_blank" rel="noopener" class="proj-link-btn proj-link-live">
+              <i class="fas fa-external-link-alt"></i> <span data-en="Visit Website" data-th="เยี่ยมชมเว็บไซต์">Visit
+                Website</span>
+            </a>
+            <a href="https://github.com/novterss" target="_blank" rel="noopener" class="proj-link-btn">
+              <i class="fab fa-github"></i> <span data-en="GitHub" data-th="GitHub">GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Grid -->
+      <div class="project-grid">
+        <!-- Zen Downloader -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <div class="proj-logo-wrap">
+              <img src="zendownloader.png" alt="Zen Downloader Logo" class="proj-logo-img" />
+            </div>
+            <div class="proj-badges">
+              <span class="proj-badge live-badge"><span class="live-dot"></span>v1.0.2</span>
+              <span class="proj-badge ai-badge"><i class="fas fa-robot"></i> <span data-en="AI-Assisted"
+                  data-th="AI ช่วยเขียน">AI-Assisted</span></span>
+              <span class="proj-badge desktop-badge"><i class="fas fa-desktop"></i> Desktop</span>
+            </div>
+          </div>
+          <h3 class="proj-name">Zen Downloader</h3>
+          <p class="proj-desc"
+            data-en="A desktop application built with Electron that lets you download videos from 42+ streaming platforms. Features include multi-platform catalog browsing, episode selection, progress tracking, and FFmpeg-powered video processing."
+            data-th="แอปพลิเคชันเดสก์ท็อปสร้างด้วย Electron สำหรับดาวน์โหลดวิดีโอจาก 42+ แพลตฟอร์มสตรีมมิ่ง มีฟีเจอร์เรียกดูแคตตาล็อกหลายแพลตฟอร์ม, เลือกตอน, ติดตามความคืบหน้า และประมวลผลวิดีโอด้วย FFmpeg">
+            A desktop application built with Electron that lets you download videos from 42+ streaming platforms.
+            Features include multi-platform catalog browsing, episode selection, progress tracking, and FFmpeg-powered
+            video processing.
+          </p>
+          <div class="proj-screenshot">
+            <img src="zendownloadprogram.png" alt="Zen Downloader Screenshot" class="proj-screenshot-img" />
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Electron</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">Node.js</span>
+            <span class="stack-tag">FFmpeg</span>
+            <span class="stack-tag">Vite</span>
+            <span class="stack-tag">REST APIs</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/novterss/zen-downloader-releases" target="_blank" rel="noopener"
+              class="proj-link-btn">
+              <i class="fab fa-github"></i> <span data-en="GitHub" data-th="GitHub">GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- EzPlayStoreTH -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <div class="proj-logo-wrap">
+              <img src="ezplaystoreth.png" alt="EzPlayStoreTH Logo" class="proj-logo-img" />
+            </div>
+            <div class="proj-badges">
+              <span class="proj-badge live-badge"><span class="live-dot"></span>Live</span>
+              <span class="proj-badge ai-badge"><i class="fas fa-robot"></i> <span data-en="AI-Assisted"
+                  data-th="AI ช่วยเขียน">AI-Assisted</span></span>
+            </div>
+          </div>
+          <h3 class="proj-name">EzPlayStoreTH</h3>
+          <p class="proj-desc"
+            data-en="A digital marketplace web application for selling software, presets, and digital products. Built with Next.js 16 and Supabase, featuring user authentication, wallet system, flash sales, download tracking, and PromptPay payment integration."
+            data-th="เว็บแอปพลิเคชัน marketplace สำหรับขายซอฟต์แวร์ พรีเซ็ต และสินค้าดิจิทัล สร้างด้วย Next.js 16 และ Supabase มีระบบยืนยันตัวตน, ระบบกระเป๋าเงิน, Flash Sale, ติดตามการดาวน์โหลด และระบบชำระเงินผ่าน PromptPay">
+            A digital marketplace web application for selling software, presets, and digital products. Built with
+            Next.js 16 and Supabase, featuring user authentication, wallet system, flash sales, download tracking,
+            and PromptPay payment integration.
+          </p>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js 16</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">Tailwind CSS</span>
+            <span class="stack-tag">MongoDB</span>
+            <span class="stack-tag">Vercel</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://www.ezplaystoreth.xyz/" target="_blank" rel="noopener"
+              class="proj-link-btn proj-link-live">
+              <i class="fas fa-external-link-alt"></i> <span data-en="Visit Website"
+                data-th="เยี่ยมชมเว็บไซต์">Visit Website</span>
+            </a>
+            <a href="https://github.com/novterss" target="_blank" rel="noopener" class="proj-link-btn">
+              <i class="fab fa-github"></i> <span data-en="GitHub" data-th="GitHub">GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 24Sweets -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <div class="proj-logo-wrap">
+              <img src="24sweets.png" alt="24Sweets Logo" class="proj-logo-img" />
+            </div>
+            <div class="proj-badges">
+              <span class="proj-badge draft-badge"><i class="fas fa-pencil-alt"></i> <span data-en="In Development"
+                  data-th="กำลังพัฒนา">In Development</span></span>
+              <span class="proj-badge ai-badge"><i class="fas fa-robot"></i> <span data-en="AI-Assisted"
+                  data-th="AI ช่วยเขียน">AI-Assisted</span></span>
+            </div>
+          </div>
+          <h3 class="proj-name">24Sweets</h3>
+          <p class="proj-desc"
+            data-en="A web application for creating personalized surprise websites for your loved ones. Built with Next.js 16 and Supabase, featuring customizable templates, QR code sharing via PromptPay, beautiful animations with Framer Motion, and a responsive design."
+            data-th="เว็บแอปพลิเคชันสำหรับสร้างเว็บไซต์เซอร์ไพรส์ให้คนพิเศษของคุณ สร้างด้วย Next.js 16 และ Supabase มีเทมเพลตปรับแต่งได้, แชร์ผ่าน QR Code, อนิเมชั่นสวยงามด้วย Framer Motion และดีไซน์แบบ Responsive">
+            A web application for creating personalized surprise websites for your loved ones. Built with Next.js 16
+            and Supabase, featuring customizable templates, QR code sharing, beautiful animations with Framer Motion,
+            and a responsive design.
+          </p>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js 16</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">Tailwind CSS</span>
+            <span class="stack-tag">Framer Motion</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/novterss" target="_blank" rel="noopener" class="proj-link-btn">
+              <i class="fab fa-github"></i> <span data-en="GitHub" data-th="GitHub">GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="github-cta">
+        <p data-en="More projects and experiments on GitHub" data-th="ดูโปรเจกต์และการทดลองเพิ่มเติมบน GitHub">More
+          projects and experiments on GitHub</p>
+        <a href="https://github.com/novterss" target="_blank" rel="noopener" class="btn-outline">
+          <i class="fab fa-github"></i> <span data-en="Visit GitHub Profile" data-th="ดู GitHub Profile">Visit GitHub
+            Profile</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section section-alt">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="My background" data-th="พื้นฐานของฉัน">My background</span>
+        <h2 class="sec-title" data-en="Education" data-th="การศึกษา">Education</h2>
+      </div>
+      <div class="edu-timeline">
+        <!-- University (Current) -->
+        <div class="edu-card current-edu">
+          <div class="edu-dot"><i class="fas fa-graduation-cap"></i></div>
+          <div class="edu-body">
+            <div class="edu-period"><span class="period-badge current-badge" data-en="Current · 2024 – Present"
+                data-th="ปัจจุบัน · 2567 – ปัจจุบัน">Current · 2024 – Present</span></div>
+            <h3 class="edu-degree" data-en="Bachelor of Science (Computer Science)"
+              data-th="วิทยาศาสตรบัณฑิต (วิทยาการคอมพิวเตอร์)">Bachelor of Science (Computer Science)</h3>
+            <div class="edu-abbr">B.Sc. (CS) · วท.บ. (วิทยาการคอมพิวเตอร์)</div>
+            <div class="edu-school"><i class="fas fa-university"></i> <span
+                data-en="Rangsit University, Faculty of Information Technology"
+                data-th="มหาวิทยาลัยรังสิต คณะเทคโนโลยีสารสนเทศ">Rangsit University, Faculty of Information
+                Technology</span></div>
+            <div class="edu-id-row"><i class="fas fa-id-badge"></i> <span data-en="Student ID:"
+                data-th="รหัสนักศึกษา:">Student ID:</span> <strong>6800401</strong></div>
+            <div class="edu-highlights">
+              <span class="edu-tag" data-en="Year 1" data-th="ชั้นปีที่ 1">Year 1</span>
+              <span class="edu-tag" data-en="Web Development" data-th="Web Development">Web Development</span>
+              <span class="edu-tag" data-en="Seeking Internship" data-th="มองหาที่ฝึกงาน">Seeking Internship</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- High School M.5-6 -->
+        <div class="edu-card">
+          <div class="edu-dot edu-dot-alt"><i class="fas fa-school"></i></div>
+          <div class="edu-body">
+            <div class="edu-period"><span class="period-badge past-badge" data-en="2022 – 2024"
+                data-th="2565 – 2567">2022 – 2024</span></div>
+            <h3 class="edu-degree" data-en="Upper Secondary · English Programme (EP)"
+              data-th="มัธยมศึกษาตอนปลาย · โปรแกรม English Programme (EP)">Upper Secondary · English Programme (EP)</h3>
+            <div class="edu-abbr" data-en="Matthayom 5–6" data-th="ม.5–6">Matthayom 5–6</div>
+            <div class="edu-school"><i class="fas fa-school"></i> <span data-en="Hat Yai Wittayalai School (EP)"
+                data-th="โรงเรียนหาดใหญ่วิทยาลัย (English Programme)">Hat Yai Wittayalai School (EP)</span></div>
+            <div class="edu-highlights">
+              <span class="edu-tag">EP</span>
+              <span class="edu-tag" data-en="English Programme" data-th="English Programme">English Programme</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AFS Exchange Program -->
+        <div class="edu-card afs-card">
+          <div class="edu-dot edu-dot-afs"><i class="fas fa-globe-europe"></i></div>
+          <div class="edu-body">
+            <div class="edu-period"><span class="period-badge afs-badge" data-en="10 Months · AFS Exchange"
+                data-th="10 เดือน · แลกเปลี่ยน AFS">10 Months · AFS Exchange</span></div>
+            <h3 class="edu-degree" data-en="AFS Intercultural Exchange Program — Italy 🇮🇹"
+              data-th="โครงการแลกเปลี่ยน AFS — อิตาลี 🇮🇹">AFS Intercultural Exchange Program — Italy 🇮🇹</h3>
+            <div class="edu-school"><i class="fas fa-plane"></i> <span
+                data-en="Studied abroad in Italy for 10 months through AFS Intercultural Programs"
+                data-th="ศึกษาต่างประเทศที่อิตาลี 10 เดือน ผ่านโครงการแลกเปลี่ยน AFS">Studied abroad in Italy for 10
+                months through AFS Intercultural Programs</span></div>
+            <div class="edu-highlights">
+              <span class="edu-tag"><i class="fas fa-language"></i> <span data-en="Italian Language"
+                  data-th="ภาษาอิตาลี">Italian Language</span></span>
+              <span class="edu-tag"><i class="fas fa-globe"></i> <span data-en="Cultural Exchange"
+                  data-th="แลกเปลี่ยนวัฒนธรรม">Cultural Exchange</span></span>
+              <span class="edu-tag"><i class="fas fa-certificate"></i> <span data-en="Certificate Awarded"
+                  data-th="ได้รับเกียรติบัตร">Certificate Awarded</span></span>
+            </div>
+            <div class="afs-photo">
+              <img src="italy.jpg" alt="AFS Certificate Ceremony" class="afs-photo-img" />
+              <div class="afs-photo-caption" data-en="Certificate ceremony after returning from Italy"
+                data-th="พิธีรับเกียรติบัตรหลังกลับจากอิตาลี">Certificate ceremony after returning from Italy</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle School M.1-4 -->
+        <div class="edu-card">
+          <div class="edu-dot edu-dot-alt"><i class="fas fa-school"></i></div>
+          <div class="edu-body">
+            <div class="edu-period"><span class="period-badge past-badge" data-en="2018 – 2022"
+                data-th="2561 – 2565">2018 – 2022</span></div>
+            <h3 class="edu-degree" data-en="Secondary · International Programme (IP)"
+              data-th="มัธยมศึกษาตอนต้น · International Programme (IP)">Secondary · International Programme (IP)</h3>
+            <div class="edu-abbr" data-en="Matthayom 1–4" data-th="ม.1–4">Matthayom 1–4</div>
+            <div class="edu-school"><i class="fas fa-school"></i> <span data-en="Hat Yai Rattaprachasarn School (IP)"
+                data-th="โรงเรียนหาดใหญ่รัฐประชาสรรค์ (International Programme)">Hat Yai Rattaprachasarn School
+                (IP)</span></div>
+            <div class="edu-highlights">
+              <span class="edu-tag">IP</span>
+              <span class="edu-tag" data-en="International Programme" data-th="International Programme">International
+                Programme</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary School -->
+        <div class="edu-card">
+          <div class="edu-dot edu-dot-alt"><i class="fas fa-child"></i></div>
+          <div class="edu-body">
+            <div class="edu-period"><span class="period-badge past-badge" data-en="Primary School"
+                data-th="ประถมศึกษา">Primary School</span></div>
+            <h3 class="edu-degree" data-en="Primary Education" data-th="ประถมศึกษา">Primary Education</h3>
+            <div class="edu-school"><i class="fas fa-school"></i> <span data-en="Suwanwong School"
+                data-th="โรงเรียนสุวรรณวงศ์">Suwanwong School</span></div>
+            <div class="edu-highlights">
+              <span class="edu-tag" data-en="Primary School" data-th="โรงเรียนประถม">Primary School</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRANSCRIPT -->
+        <div class="transcript-wrap">
+          <h3 class="transcript-title"><i class="fas fa-scroll"></i> <span data-en="Academic Transcript"
+              data-th="ผลการเรียน">Academic Transcript</span></h3>
+
+          <!-- Year 1 Sem 1 -->
+          <div class="semester-block">
+            <div class="sem-header">
+              <div class="sem-label"><i class="fas fa-calendar-alt"></i> <span data-en="Year 1 · Semester 1"
+                  data-th="ปีที่ 1 · เทอม 1">Year 1 · Semester 1</span></div>
+              <div class="sem-gpa"><span data-en="GPA" data-th="เกรดเฉลี่ย">GPA</span> <strong>3.83</strong></div>
+            </div>
+            <div class="grade-table">
+              <div class="grade-row grade-header">
+                <span data-en="Code" data-th="รหัสวิชา">Code</span>
+                <span data-en="Subject" data-th="วิชา">Subject</span>
+                <span data-en="Grade" data-th="เกรด">Grade</span>
+              </div>
+              <div class="grade-row">
+                <span class="course-code">DIT101</span>
+                <span class="course-name" data-en="Programming I" data-th="การเขียนโปรแกรม 1">Programming I</span>
+                <span class="grade-badge grade-a">A</span>
+              </div>
+              <div class="grade-row">
+                <span class="course-code">ENL126</span>
+                <span class="course-name" data-en="English in TED" data-th="ภาษาอังกฤษในเทค">English in TED</span>
+                <span class="grade-badge grade-b">B</span>
+              </div>
+              <div class="grade-row">
+                <span class="course-code">MAT133</span>
+                <span class="course-name" data-en="Calculus 1" data-th="แคลคูลัส 1">Calculus 1</span>
+                <span class="grade-badge grade-a">A</span>
+              </div>
+              <div class="grade-row">
+                <span class="course-code">MAT252</span>
+                <span class="course-name" data-en="Probability and Statistics"
+                  data-th="ความน่าจะเป็นและสถิติ">Probability and Statistics</span>
+                <span class="grade-badge grade-a">A</span>
+              </div>
+              <div class="grade-row">
+                <span class="course-code">RSU112</span>
+                <span class="course-name" data-en="Sports for Health" data-th="กีฬาเพื่อสุขภาพ">Sports for Health</span>
+                <span class="grade-badge grade-a">A</span>
+              </div>
+              <div class="grade-row">
+                <span class="course-code">RSU185</span>
+                <span class="course-name" data-en="Information Technology Skills for Professionals"
+                  data-th="ทักษะเทคโนโลยีสารสนเทศ">IT Skills for Professionals</span>
+                <span class="grade-badge grade-a">A</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coming Soon Semesters -->
+          <div class="coming-soon-grid">
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 1 · Sem 2" data-th="ปีที่ 1 · เทอม 2">Year 1 · Sem 2</div><span>Coming Soon</span>
+            </div>
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 2 · Sem 1" data-th="ปีที่ 2 · เทอม 1">Year 2 · Sem 1</div><span>Coming Soon</span>
+            </div>
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 2 · Sem 2" data-th="ปีที่ 2 · เทอม 2">Year 2 · Sem 2</div><span>Coming Soon</span>
+            </div>
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 3 · Sem 1" data-th="ปีที่ 3 · เทอม 1">Year 3 · Sem 1</div><span>Coming Soon</span>
+            </div>
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 3 · Sem 2" data-th="ปีที่ 3 · เทอม 2">Year 3 · Sem 2</div><span>Coming Soon</span>
+            </div>
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 4 · Sem 1" data-th="ปีที่ 4 · เทอม 1">Year 4 · Sem 1</div><span>Coming Soon</span>
+            </div>
+            <div class="cs-block"><i class="fas fa-lock"></i>
+              <div data-en="Year 4 · Sem 2" data-th="ปีที่ 4 · เทอม 2">Year 4 · Sem 2</div><span>Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="section-inner">
+      <div class="sec-header">
+        <span class="sec-tag" data-en="Get in touch" data-th="ติดต่อกัน">Get in touch</span>
+        <h2 class="sec-title" data-en="Contact" data-th="ติดต่อ">Contact</h2>
+        <p class="sec-sub" data-en="I'm looking for an internship opportunity. Feel free to reach out!"
+          data-th="ผมกำลังมองหาโอกาสฝึกงาน ติดต่อมาได้เลยครับ!">I'm looking for an internship opportunity. Feel free to
+          reach out!</p>
+      </div>
+      <div class="contact-grid">
+        <a href="mailto:naphatcharakan.p68@gmail.com" class="contact-card">
+          <div class="contact-icon email-ic"><i class="fas fa-envelope"></i></div>
+          <div class="contact-label" data-en="Email" data-th="อีเมล">Email</div>
+          <div class="contact-val">naphatcharakan.p68@gmail.com</div>
+        </a>
+        <a href="tel:0627905333" class="contact-card">
+          <div class="contact-icon phone-ic"><i class="fas fa-phone"></i></div>
+          <div class="contact-label" data-en="Phone" data-th="โทรศัพท์">Phone</div>
+          <div class="contact-val">062-790-5333</div>
+        </a>
+        <a href="https://github.com/novterss" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon gh-cc"><i class="fab fa-github"></i></div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-val">github.com/novterss</div>
+        </a>
+        <a href="https://instagram.com/kubkannn" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon ig-ic"><i class="fab fa-instagram"></i></div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-val">@kubkannn</div>
+        </a>
+        <a href="https://www.facebook.com/NaphatcharakanPhatchaiphongsa" target="_blank" rel="noopener"
+          class="contact-card">
+          <div class="contact-icon fb-ic"><i class="fab fa-facebook"></i></div>
+          <div class="contact-label">Facebook</div>
+          <div class="contact-val">Naphatcharakan Phatchaiphongsa</div>
+        </a>
+        <a href="https://t.me/WhoImiItsAboutWhoAsk777" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon tg-ic"><i class="fab fa-telegram"></i></div>
+          <div class="contact-label">Telegram</div>
+          <div class="contact-val">@WhoImiItsAboutWhoAsk777</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-logo"><span class="bracket">&lt;</span>Kub<span class="bracket">/&gt;</span></div>
+      <p class="footer-copy" data-en="© 2024 Naphatcharakan Phatchaiphongsa · Built with HTML, CSS & JS"
+        data-th="© 2567 ณพัชรกัณฑ์ พัชญ์ชัยพงศา · สร้างด้วย HTML, CSS & JS">© 2024 Naphatcharakan Phatchaiphongsa ·
+        Built with HTML, CSS & JS</p>
+      <div class="footer-socials">
+        <a href="https://github.com/novterss" target="_blank" rel="noopener" aria-label="GitHub"><i
+            class="fab fa-github"></i></a>
+        <a href="https://instagram.com/kubkannn" target="_blank" rel="noopener" aria-label="Instagram"><i
+            class="fab fa-instagram"></i></a>
+        <a href="https://t.me/WhoImiItsAboutWhoAsk777" target="_blank" rel="noopener" aria-label="Telegram"><i
+            class="fab fa-telegram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

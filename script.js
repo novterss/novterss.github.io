@@ -115,7 +115,7 @@ function updateNowStatus() {
   } else {
     statusEl.textContent = lang === 'th' ? 'กำลังฝึกงานที่ บล.ทรีนีตี้ 🏢' : 'Interning at Trinity Securities 🏢';
     subEl.textContent    = lang === 'th' ? 'ฝึกงานที่ บริษัทหลักทรัพย์ ทรีนีตี้ จำกัด — เก็บเกี่ยวประสบการณ์จริง!' : 'Gaining real-world experience at Trinity Securities Company Limited!';
-    iconEl.innerHTML = '<img src="https://i.ibb.co/FbW36hqr/image.png" alt="Trinity" style="width:32px;height:32px;object-fit:contain;" />';
+    iconEl.innerHTML = '<img src="https://i.ibb.co/FbW36hqr/image.png" alt="Trinity" style="width:56px;height:56px;object-fit:contain;" />';
   }
 }
 updateNowStatus();

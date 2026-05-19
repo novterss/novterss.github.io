@@ -113,9 +113,9 @@ function updateNowStatus() {
     subEl.textContent    = lang === 'th' ? 'ปรับปรุงฟีเจอร์และประสิทธิภาพของแพลตฟอร์ม' : 'Improving features and performance of the platform';
     iconEl.innerHTML = '<i class="fas fa-code"></i>';
   } else {
-    statusEl.textContent = lang === 'th' ? 'กำลังมองหาที่ฝึกงาน 🔍' : 'Actively Seeking Internship 🔍';
-    subEl.textContent    = lang === 'th' ? 'ต้องการประสบการณ์จริงด้าน Web Development — ติดต่อมาได้เลย!' : 'Looking for hands-on web development experience — feel free to reach out!';
-    iconEl.innerHTML = '<i class="fas fa-briefcase"></i>';
+    statusEl.textContent = lang === 'th' ? 'กำลังฝึกงานที่ บล.ทรีนีตี้ 🏢' : 'Interning at Trinity Securities 🏢';
+    subEl.textContent    = lang === 'th' ? 'ฝึกงานที่ บริษัทหลักทรัพย์ ทรีนีตี้ จำกัด — เก็บเกี่ยวประสบการณ์จริง!' : 'Gaining real-world experience at Trinity Securities Company Limited!';
+    iconEl.innerHTML = '<img src="https://i.ibb.co/FbW36hqr/image.png" alt="Trinity" style="width:32px;height:32px;object-fit:contain;" />';
   }
 }
 updateNowStatus();

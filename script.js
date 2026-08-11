@@ -96,27 +96,8 @@ window.addEventListener('scroll', () => {
 
 // currently building status
 function updateNowStatus() {
-  const now = new Date();
-  const statusEl = document.getElementById('nowStatus');
-  const subEl    = document.getElementById('nowSub');
-  const iconEl   = document.getElementById('nowIcon');
-  if (!statusEl) return;
-  const lang = currentLang;
-  const phase1End = new Date(2026, 4, 6);
-  const phase2End = new Date(2026, 4, 10);
-  if (now < phase1End) {
-    statusEl.textContent = lang === 'th' ? 'เตรียมตัวสอบ Final 📚' : 'Preparing for Final Exams 📚';
-    subEl.textContent    = lang === 'th' ? 'สอบวันที่ 6 พ.ค. นี้ — ขอให้โชคดีด้วยนะ!' : 'Exams on May 6 — wish me luck!';
-    iconEl.innerHTML = '<i class="fas fa-book-open"></i>';
-  } else if (now < phase2End) {
-    statusEl.textContent = lang === 'th' ? 'กำลังพัฒนา Doseries 💻' : 'Developing Doseries 💻';
-    subEl.textContent    = lang === 'th' ? 'ปรับปรุงฟีเจอร์และประสิทธิภาพของแพลตฟอร์ม' : 'Improving features and performance of the platform';
-    iconEl.innerHTML = '<i class="fas fa-code"></i>';
-  } else {
-    statusEl.textContent = lang === 'th' ? 'กำลังฝึกงานที่ บล.ทรีนีตี้ 🏢' : 'Interning at Trinity Securities 🏢';
-    subEl.textContent    = lang === 'th' ? 'ฝึกงานที่ บริษัทหลักทรัพย์ ทรีนีตี้ จำกัด — เก็บเกี่ยวประสบการณ์จริง!' : 'Gaining real-world experience at Trinity Securities Company Limited!';
-    iconEl.innerHTML = '<img src="https://i.ibb.co/FbW36hqr/image.png" alt="Trinity" style="width:56px;height:56px;object-fit:contain;" />';
-  }
+  // Now static in HTML
+  return;
 }
 updateNowStatus();
 
@@ -164,3 +145,35 @@ window.addEventListener('scroll', () => {
   const pct        = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
   progressBar.style.width = pct + '%';
 }, { passive: true });
+
+// Lightbox functionality
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.querySelector('.lightbox-close');
+
+// Open lightbox for all project and AFS images
+document.querySelectorAll('.proj-screenshot-img, .afs-photo-img').forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  });
+});
+
+// Close lightbox on clicking close button
+if (lightboxClose) {
+  lightboxClose.addEventListener('click', () => {
+    lightbox.classList.remove('show');
+    document.body.style.overflow = '';
+  });
+}
+
+// Close lightbox on clicking outside the image
+if (lightbox) {
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+}

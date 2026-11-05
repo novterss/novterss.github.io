@@ -93,6 +93,8 @@
     #ci .sys-h b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;font-size:11px;letter-spacing:0}
     #ci .sys.err .sys-h{color:#fecaca;text-shadow:0 0 8px rgba(248,113,113,.8)}
     #ci .sys-b{font-size:13px;line-height:1.55;text-align:center}
+    #ci .sys.err{display:flex;flex-direction:column}
+    #ci .sys.err .sys-b{flex:1;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
     #ci .sys-b em{font-style:normal;color:#7dd3fc}
     #ci .sys-loc{display:block;margin-top:6px;font-size:11px;color:#64748b;text-align:center}
     #ci .sys.big{width:min(520px,calc(100vw - 32px));left:50%;top:50%;padding:22px 26px 24px}
@@ -149,7 +151,7 @@
           d.classList.remove('xr-on', 'xr-raw', 'xr-mono', 'xr-boxes', 'xr-3d', 'xr-code', 'xr-xray');
           var ci = document.getElementById('ci');
           if (ci) ci.innerHTML = '';
-        }, 30000);
+        }, 40000);
       }
     })();
   </script>

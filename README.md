@@ -31,6 +31,9 @@ Welcome to the source code of my personal portfolio website, deployed via **GitH
 - **🌐 Bilingual (EN / TH):** Fully integrated English and Thai translations that can be toggled without reloading the page.
 - **📱 Fully Responsive:** Carefully crafted with responsive design principles to ensure a perfect layout across all devices (Desktop, Tablet, Mobile).
 - **🎨 Modern UI/UX:** Features smooth scrolling, floating navigation bars, typing animation effects, and sleek CSS transitions.
+- **🩻 X-ray render intro:** On the first visit the page plays the browser's own rendering pipeline — Parse (raw HTML), Style, Layout (box model with sizes), Paint and a 3D Composite of the layers. Add `?intro` to the URL to replay it, or use the footer button.
+- **⌨️ Command palette:** Press `Ctrl + K` to jump to any section or project, switch theme or language, copy the email or download the CV.
+- **🗂️ Project filters, counters and motion:** Filter projects by type, animated stats, magnetic buttons and a custom cursor, powered by GSAP + ScrollTrigger. Respects the OS "reduce motion" setting (add `?motion=full` to override).
 
 ---
 
@@ -57,7 +60,8 @@ novterss.github.io/
 ├── index.html              # Main portfolio page (Structure & Content)
 ├── cv.html                 # Dedicated CV viewer page
 ├── style.css               # All custom styling, themes, and animations
-├── script.js               # Logic for toggling languages, themes, and interactions
+├── script.js               # Languages, themes, X-ray intro, command palette, animations
+├── assets/img/             # Optimised WebP images used by the site
 ├── *.jpg / *.png           # Project screenshots and personal assets
 └── *.pdf                   # Downloadable Resume/CV files (Eng & Thai)
 ```

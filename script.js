@@ -806,6 +806,36 @@
       return w;
     }
 
+    // ?errors=os → error windows imitating different systems (generic look, no real logos)
+    const errStyle = /[?&]errors=os(?:&|$)/.test(location.search) ? 'os' : 'red';
+    const strip = s => s.replace(/<[^>]+>/g, '');
+    const OS_KINDS = ['win', 'win', 'mac', 'code', 'crash', 'term'];
+    const OS_SIZE = { win: [330, 150], mac: [300, 170], code: [360, 96], crash: [300, 200], term: [380, 140] };
+    function osWindow(kind, msg, loc, i) {
+      const w = document.createElement('div');
+      w.className = 'osw osw-' + kind;
+      const plain = strip(msg);
+      if (kind === 'win') {
+        w.innerHTML = '<div class="w-bar"><span>style.css — Error</span><b>✕</b></div>' +
+          '<div class="w-body"><i class="fas fa-circle-xmark"></i><p>' + plain + '</p></div><div class="w-btns"><span>OK</span></div>';
+      } else if (kind === 'mac') {
+        w.innerHTML = '<div class="m-dots"><i></i><i></i><i></i></div><i class="fas fa-triangle-exclamation m-ic"></i>' +
+          '<b>“style.css” can’t be rendered.</b><p>' + plain + '</p><div class="m-btns"><span>Ignore</span><span class="m-ok">OK</span></div>';
+      } else if (kind === 'code') {
+        w.innerHTML = '<i class="fas fa-circle-xmark"></i><div><b>CSS</b> ' + plain + '<small>' + (loc || 'style.css') + '</small></div><span class="c-x">✕</span>';
+      } else if (kind === 'crash') {
+        w.innerHTML = '<div class="cr-tab"><span>Kan · Portfolio</span>✕</div><div class="cr-body"><i class="fas fa-face-frown"></i>' +
+          '<b>Oh no! This page crashed.</b><p>Something went wrong while rendering it.</p><span class="cr-btn">Reload</span></div>';
+      } else {
+        const traces = ['panic: stylesheet is on fire', 'TypeError: Cannot read properties of undefined (reading \'color\')',
+          'Error: ENOSTYLE: no such stylesheet', 'Segmentation fault (core dumped)', 'RangeError: margin -9999px out of range'];
+        w.innerHTML = '<span class="t-red">' + traces[i % traces.length] + '</span>\n    at render (style.css:' + (3 + i % 5) + ':' + (2 + i % 9) +
+          ')\n    at paint (browser:1:1)\n<span class="t-dim">exit code 1</span>';
+      }
+      stage.appendChild(w);
+      return w;
+    }
+
     function cleanup() {
       if (tl) { tl.kill(); tl = null; }
       clearTimeout(window.__xrFailsafe);
@@ -885,8 +915,10 @@
       };
       while (open.length && placed.length < maxWins) {
         const [cx, cy] = open[Math.floor(Math.random() * open.length)];
-        const s = gsap.utils.random(.95, 1.3);
-        const w = baseW * s, h = baseH * s;
+        const kind = errStyle === 'os' ? OS_KINDS[Math.floor(Math.random() * OS_KINDS.length)] : 'sys';
+        const s = gsap.utils.random(.95, 1.3) * (small ? .72 : 1);
+        const w = (kind === 'sys' ? baseW / (small ? .72 : 1) : OS_SIZE[kind][0]) * s;
+        const h = (kind === 'sys' ? baseH / (small ? .72 : 1) : OS_SIZE[kind][1]) * s;
         const rot = angle();
         const x = cx + gsap.utils.random(-w * .25, w * .25);
         const y = cy + gsap.utils.random(-h * .25, h * .25);
@@ -897,19 +929,21 @@
           const lx = dx * cos - dy * sin, ly = dx * sin + dy * cos;
           return !(Math.abs(lx) <= hw && Math.abs(ly) <= hh);
         });
-        placed.push({ x, y, w, h, rot });
+        placed.push({ x, y, w, h, rot, kind });
       }
       const n = placed.length;
       const wins = [];
       // dark backing that fades in under the pile once it is nearly complete,
       // so even a pinhole between tilted windows never shows the page
       const backing = document.createElement('div');
-      Object.assign(backing.style, { position: 'absolute', inset: '0', background: '#050e22', opacity: '0' });
-      stage.insertBefore(backing, stage.querySelector('.sys.err'));
+      Object.assign(backing.style, { position: 'absolute', inset: '0', background: errStyle === 'os' ? '#008080' : '#1a0509', opacity: '0' });
+      stage.appendChild(backing);
       tl.to(backing, { opacity: 1, duration: .5 }, 13.2);
       placed.forEach((p, i) => {
         const [msg, loc] = errors[i % errors.length];
-        const w = sysWindow('err', '[ ' + titles[i % titles.length] + ' ]', msg, loc);
+        const w = p.kind === 'sys'
+          ? sysWindow('err', '[ ' + titles[i % titles.length] + ' ]', msg, loc)
+          : osWindow(p.kind, msg, loc, i);
         gsap.set(w, {
           width: p.w, height: p.h, left: p.x - p.w / 2, top: p.y - p.h / 2,
           rotation: p.rot, autoAlpha: 0, scale: .8

@@ -189,13 +189,17 @@
         d.classList.add('xr-on', 'xr-raw', mode);
         var css = document.getElementById('main-css');
         if (css) css.media = 'not all';
-        /* safety net: never leave the page unstyled */
-        window.__xrFailsafe = setTimeout(function () {
+        /* safety net: never leave the page unstyled. If the intro has not
+           started within 6s (script blocked, offline CDN, background tab),
+           show the styled page; a running intro re-arms a longer timer. */
+        window.__xrRestore = function () {
           if (css) css.media = 'all';
-          d.classList.remove('xr-on', 'xr-raw', 'xr-mono', 'xr-boxes', 'xr-3d', 'xr-code', 'xr-xray');
+          d.classList.remove('xr-on', 'xr-raw', 'xr-mono', 'xr-boxes', 'xr-paint', 'xr-3d', 'xr-code', 'xr-xray');
+          d.style.overflow = '';
           var ci = document.getElementById('ci');
           if (ci) ci.innerHTML = '';
-        }, 40000);
+        };
+        window.__xrFailsafe = setTimeout(window.__xrRestore, 6000);
       }
     })();
   </script>

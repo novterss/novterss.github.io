@@ -37,10 +37,13 @@ Welcome to the source code of my personal portfolio website, deployed via **GitH
 ## 🚀 Featured Projects
 
 Here are some of the key projects featured on the portfolio:
-- **Doseries:** A streaming platform interface.
-- **EZPlayStoreTH:** A digital storefront and gaming marketplace.
-- **Zen Downloader:** A comprehensive downloading application.
-- **LINE OA Integration:** Custom automated workflows and bots for LINE Official Accounts.
+- **Doseries:** A streaming platform with 40k+ users (Next.js 16, Prisma, PostgreSQL).
+- **Zen Downloader:** An Electron desktop app for downloading from 42+ streaming platforms.
+- **Xenless Store:** A Thai PUBG account marketplace with real-time stock sync.
+- **EzPlayStoreTH:** A digital product marketplace with 4,000+ Discord members.
+- **CR Heavy:** An e-commerce platform for a heavy machinery parts importer.
+- **CRD Tractor Parts LINE OA:** A LINE Official Account with AI consultation and LIFF ordering.
+- **RSU Smart Repair & NEXUS SPACE:** University system analysis and database projects.
 
 ---
 
@@ -82,7 +85,7 @@ Since this is a static website, you don't need any complex build tools to run it
   <a href="https://github.com/novterss">
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
   </a>
-  <a href="mailto:phatchaiphongsa@gmail.com">
+  <a href="mailto:naphatcharakan.p68@rsu.ac.th">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
 </div>

@@ -31,7 +31,9 @@ Welcome to the source code of my personal portfolio website, deployed via **GitH
 - **🌐 Bilingual (EN / TH):** Fully integrated English and Thai translations that can be toggled without reloading the page.
 - **📱 Fully Responsive:** Carefully crafted with responsive design principles to ensure a perfect layout across all devices (Desktop, Tablet, Mobile).
 - **🎨 Modern UI/UX:** Features smooth scrolling, floating navigation bars, typing animation effects, and sleek CSS transitions.
-- **🩻 X-ray render intro:** On the first visit the page plays the browser's own rendering pipeline — Parse (raw HTML), Style, Layout (box model with sizes), Paint and a 3D Composite of the layers. Add `?intro` to the URL to replay it, or use the footer button.
+- **💻 Code intro:** On the first visit the page opens as raw HTML, an editor types broken CSS, a flood of error windows takes over, then the CSS gets fixed, the site boots "to a port" and shows LOADING SUCCESS. Add `?intro` to the URL to replay it, or use the footer button.
+- **🩻 X-ray intro (alternative):** `?intro=xray` plays the browser rendering pipeline instead — Parse, Style, Layout, Paint and a 3D Composite of the layers.
+- **🥚 Console easter egg:** open DevTools and type `kan.hire()`.
 - **⌨️ Command palette:** Press `Ctrl + K` to jump to any section or project, switch theme or language, copy the email or download the CV.
 - **🗂️ Project filters, counters and motion:** Filter projects by type, animated stats, magnetic buttons and a custom cursor, powered by GSAP + ScrollTrigger. Respects the OS "reduce motion" setting (add `?motion=full` to override).
 

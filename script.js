@@ -376,7 +376,8 @@
       { label: th ? 'ดาวน์โหลด CV' : 'Download CV', icon: 'fas fa-file-arrow-down', keys: 'cv resume download pdf เรซูเม่', run: () => $('#cvDownloadBtn').click() },
       { label: th ? 'เปิดหน้า CV' : 'Open printable CV', icon: 'fas fa-file-lines', keys: 'cv resume print view', run: () => { window.location.href = 'cv.html'; } },
       { label: th ? 'เปิด GitHub' : 'Open GitHub', icon: 'fab fa-github', keys: 'github code repo', run: () => window.open('https://github.com/novterss', '_blank', 'noopener') },
-      { label: th ? 'เล่นอินโทรอีกครั้ง' : 'Replay intro', icon: 'fas fa-rotate-right', keys: 'intro replay xray render อินโทร', run: () => xr.replay() }
+      { label: th ? 'เล่นอินโทรอีกครั้ง' : 'Replay intro', icon: 'fas fa-rotate-right', keys: 'intro replay code อินโทร', run: () => intro.replay('code') },
+      { label: th ? 'เล่นอินโทรแบบ X-ray' : 'Replay X-ray intro', icon: 'fas fa-layer-group', keys: 'intro replay xray render อินโทร', run: () => intro.replay('xray') }
     ].map(a => Object.assign({ group: th ? 'คำสั่ง' : 'Actions' }, a));
     return actions.concat(sections, projects);
   }
@@ -433,7 +434,7 @@
     c.run();
   }
   function openCmdk() {
-    if (xr.running) return;
+    if (intro.running) return;
     lastFocus = document.activeElement;
     cmdk.hidden = false;
     cmdkInput.value = '';
@@ -491,7 +492,7 @@
       labels.innerHTML = '';
       log.innerHTML = '';
       $$('.xr-layer-tag').forEach(t => t.remove());
-      root.classList.remove('xr-on', 'xr-raw', 'xr-mono', 'xr-boxes', 'xr-paint', 'xr-3d');
+      root.classList.remove('xr-on', 'xr-raw', 'xr-mono', 'xr-boxes', 'xr-paint', 'xr-3d', 'xr-code', 'xr-xray');
       root.style.overflow = '';
       root.style.background = '';
       document.body.style.perspective = '';
@@ -666,16 +667,351 @@
       closeLightbox();
       closeCmdk(false);
       window.scrollTo(0, 0);
-      root.classList.add('xr-on');
+      root.classList.add('xr-on', 'xr-xray');
+      root.classList.remove('xr-code');
       css.media = 'not all';
       requestAnimationFrame(run);
     };
-    $('#xrSkip').addEventListener('click', () => api.skip());
     return api;
   })();
 
-  $('#replayIntro').addEventListener('click', () => xr.replay());
-  window.__xr = xr; // debugging hook
+  /* ==================================================================
+     Code intro (default): raw HTML → typo'd CSS → error flood →
+     "just kidding" → fixed CSS → boot to port → LOADING SUCCESS
+     Timing: 4s + 3s + 4s + 5s + 3s = 19s
+     ================================================================== */
+  const ci = (function () {
+    const css = $('#main-css');
+    const stage = $('#ci');
+    const hud = $('#xr-hud');
+    const api = { running: false };
+    let tl = null;
+    let heroDone = false;
+
+    const escHtml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    function greeting() {
+      const h = new Date().getHours();
+      const part = h < 5 ? 'up late' : h < 12 ? 'good morning' : h < 17 ? 'good afternoon' : h < 21 ? 'good evening' : 'up late';
+      const ua = navigator.userAgent;
+      const br = /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox'
+        : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'web';
+      const os = /Windows/.test(ua) ? 'Windows' : /Android/.test(ua) ? 'Android' : /iPhone|iPad/.test(ua) ? 'iOS'
+        : /Mac OS X/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : '';
+      return '/* ' + part + ', ' + br + (os ? ' on ' + os : '') + ' user 👋 */';
+    }
+
+    // [text, class, isError]
+    const wrongCss = () => [
+      [[greeting(), 'c']],
+      [['body', 'k'], [' {', 'pu']],
+      [['  '], ['colour', 'p', 1], [': ', 'pu'], ['blu', 'v', 1], [';', 'pu']],
+      [['  '], ['dispaly', 'p', 1], [': ', 'pu'], ['flex', 'v', 1]],
+      [['  '], ['font-famliy', 'p', 1], [': ', 'pu'], ['Comic Sans', 'v', 1], [';', 'pu']],
+      [['  '], ['margin', 'p'], [': ', 'pu'], ['-9999px', 'v', 1], [';', 'pu']],
+      [['}}', 'pu', 1]]
+    ];
+    const fixedCss = [
+      [['/* fixed — 0 problems */', 'c']],
+      [['body', 'k'], [' {', 'pu']],
+      [['  '], ['color', 'p'], [': ', 'pu'], ['#0b1220', 'v'], [';', 'pu']],
+      [['  '], ['display', 'p'], [': ', 'pu'], ['flex', 'v'], [';', 'pu']],
+      [['  '], ['font-family', 'p'], [': ', 'pu'], ['"Inter", sans-serif', 'v'], [';', 'pu']],
+      [['  '], ['margin', 'p'], [': ', 'pu'], ['0', 'v'], [';', 'pu']],
+      [['}', 'pu']],
+      [[':root', 'k'], [' { ', 'pu'], ['--brand', 'p'], [': ', 'pu'], ['#2563eb', 'v'], [' }', 'pu']]
+    ];
+    const errors = [
+      ["Unknown property <em>'colour'</em>. Did you mean <em>'color'</em>?", 'style.css:3:3'],
+      ["<em>'blu'</em> is not a valid color.", 'style.css:3:11'],
+      ["Unknown property <em>'dispaly'</em>. Did you mean <em>'display'</em>?", 'style.css:4:3'],
+      ["Expected <em>';'</em> after <em>'flex'</em>.", 'style.css:4:16'],
+      ["Unknown property <em>'font-famliy'</em>. Did you mean <em>'font-family'</em>?", 'style.css:5:3'],
+      ["<em>Comic Sans</em> is not allowed in production.", 'style.css:5:16'],
+      ["<em>margin: -9999px</em> pushed the whole page off-screen.", 'style.css:6:11'],
+      ["Unexpected <em>'}'</em>.", 'style.css:7:2'],
+      ['Stylesheet failed to parse. Rendering without CSS.', 'renderer'],
+      ['Layout engine is confused.', 'renderer']
+    ];
+    const titles = ['ERROR', 'SYSTEM WARNING', 'ALERT', 'ERROR', 'CRITICAL'];
+
+    function render(lines, k, opts) {
+      let left = k;
+      let out = '';
+      lines.forEach((tokens, li) => {
+        if (left <= 0 && li > 0) return;
+        let line = '';
+        let lineDone = true;
+        tokens.forEach(([text, cls, err]) => {
+          if (left <= 0) { lineDone = false; return; }
+          const part = text.slice(0, left);
+          left -= part.length;
+          if (part.length < text.length) lineDone = false;
+          const classes = [cls || '', err && opts.squiggle && part.length === text.length ? 'sq' : ''].join(' ').trim();
+          line += classes ? '<span class="' + classes + '">' + escHtml(part) + '</span>' : escHtml(part);
+        });
+        const isLast = left <= 0 || li === lines.length - 1;
+        if (lineDone && opts.ticks && (left > 0 || li < lines.length - 1 || k >= opts.total)) line += '<span class="tick">✓</span>';
+        if (isLast && opts.caret) line += '<span class="caret"></span>';
+        out += '<span class="ln" data-n="' + (li + 1) + '">' + (line || ' ') + '</span>';
+        left -= 1; // newline
+      });
+      return out;
+    }
+
+    function totalChars(lines) {
+      return lines.reduce((n, tokens) => n + tokens.reduce((m, [t]) => m + t.length, 0) + 1, 0);
+    }
+
+    // a tween that "types" with human-ish rhythm over `duration` seconds
+    function typeInto(pre, lines, duration, opts) {
+      const total = totalChars(lines);
+      const flat = lines.map(tokens => tokens.map(([t]) => t).join('') + '\n').join('');
+      const times = [];
+      let acc = 0;
+      for (let i = 0; i < flat.length; i++) {
+        const ch = flat[i];
+        acc += ch === '\n' ? 2.6 : ch === ' ' ? 0.7 : 0.6 + Math.random() * 0.9;
+        times.push(acc);
+      }
+      const scale = duration / acc;
+      const o = { t: 0 };
+      const o2 = Object.assign({ total }, opts);
+      return gsap.to(o, {
+        t: duration, duration, ease: 'none',
+        onUpdate() {
+          let k = 0;
+          while (k < times.length && times[k] * scale <= o.t) k++;
+          pre.innerHTML = render(lines, k, o2);
+        },
+        onComplete() { pre.innerHTML = render(lines, total, o2); }
+      });
+    }
+
+    function editor(name, extraClass) {
+      const ed = document.createElement('div');
+      ed.className = 'ed' + (extraClass ? ' ' + extraClass : '');
+      ed.innerHTML = '<div class="ed-bar"><i></i><i></i><i></i><span class="ed-tab">' + name + '</span>' +
+        '<span class="ed-state">typing…</span></div><pre></pre><span class="enter">⏎ Enter</span>';
+      stage.appendChild(ed);
+      return ed;
+    }
+
+    function sysWindow(cls, title, body, loc) {
+      const w = document.createElement('div');
+      w.className = 'sys ' + cls;
+      w.innerHTML = '<div class="sys-h"><b>!</b>' + title + '</div><div class="sys-b">' + body +
+        (loc ? '<span class="sys-loc">' + loc + '</span>' : '') + '</div>';
+      stage.appendChild(w);
+      return w;
+    }
+
+    function cleanup() {
+      if (tl) { tl.kill(); tl = null; }
+      clearTimeout(window.__xrFailsafe);
+      gsap.killTweensOf(stage);
+      stage.innerHTML = '';
+      gsap.set(stage, { clearProps: 'all' });
+      css.media = 'all';
+      root.classList.remove('xr-on', 'xr-raw', 'xr-code', 'xr-xray');
+      root.style.overflow = '';
+      gsap.set(hud, { clearProps: 'all' });
+      api.running = false;
+      safeSet('sessionStorage', 'xr-played', '1');
+    }
+    function finish() {
+      const wasRunning = api.running;
+      cleanup();
+      if (wasRunning) {
+        if (!heroDone) heroEntrance();
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }
+    }
+
+    function run() {
+      if (!hasGsap) { cleanup(); return; }
+      api.running = true;
+      heroDone = false;
+      clearTimeout(window.__xrFailsafe);
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+      root.style.overflow = 'hidden';
+      root.classList.add('xr-raw');
+      stage.innerHTML = '';
+      gsap.set(hud, { autoAlpha: 1, y: 0 });
+
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      const small = W < 640;
+      const flash = document.createElement('div');
+      flash.className = 'flash';
+      stage.appendChild(flash);
+      const count = document.createElement('div');
+      count.className = 'count';
+      count.textContent = '⚠ 0 problems';
+      stage.appendChild(count);
+
+      tl = gsap.timeline({ id: 'ci', onComplete: finish });
+
+      /* ---- 1) raw HTML + typo'd CSS (0 → 4s) ---- */
+      const ed = editor('style.css');
+      const pre = $('pre', ed);
+      const state = $('.ed-state', ed);
+      const enter = $('.enter', ed);
+      gsap.set(ed, { autoAlpha: 0, y: 30 });
+      tl.to(ed, { autoAlpha: 1, y: 0, duration: .4, ease: 'power3.out' }, .45)
+        .add(typeInto(pre, wrongCss(), 2.75, { squiggle: true, caret: true }), .7)
+        .call(() => { state.textContent = '6 problems'; state.className = 'ed-state bad'; }, null, 3.5)
+        .to(enter, { autoAlpha: 1, duration: .15 }, 3.5)
+        .to(enter, { scale: .86, duration: .08, yoyo: true, repeat: 1 }, 3.85);
+
+      /* ---- 2) error flood (4 → 7s) ---- */
+      const n = small ? 10 : 26;
+      const ww = small ? 250 : 320;
+      const cols = small ? 2 : 5;
+      const rows = Math.ceil(n / cols);
+      const wh = small ? 110 : 120;
+      const wins = [];
+      const spanX = Math.max(0, W - ww - (small ? 16 : 40));
+      const spanY = Math.max(0, H - wh - (small ? 120 : 140));
+      for (let i = 0; i < n; i++) {
+        const [msg, loc] = errors[i % errors.length];
+        const w = sysWindow('err', '[ ' + titles[i % titles.length] + ' ]', msg, loc);
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const jitter = () => gsap.utils.random(-18, 18);
+        const x = (small ? 8 : 20) + (cols > 1 ? col * spanX / (cols - 1) : 0) + row * 10 + jitter();
+        const y = (small ? 52 : 64) + (rows > 1 ? row * spanY / (rows - 1) : 0) + (col % 2) * 26 + jitter();
+        gsap.set(w, { left: Math.min(Math.max(4, x), W - ww - 4), top: Math.max(44, y), autoAlpha: 0, scale: .85 });
+        wins.push(w);
+        const at = 4 + 2.15 * Math.pow(i / n, 1.6);
+        tl.to(w, { autoAlpha: 1, scale: 1, duration: .14, ease: 'back.out(2)' }, at)
+          .call(() => { count.textContent = '⚠ ' + Math.round(6 + (i + 1) / n * 41) + ' problems'; }, null, at);
+      }
+      tl.to(count, { autoAlpha: 1, duration: .2 }, 4);
+      if (!reduceMotion) {
+        tl.to(stage, { x: 'random(-7, 7)', y: 'random(-5, 5)', duration: .05, repeat: 17, yoyo: true, ease: 'none' }, 5.3)
+          .set(stage, { x: 0, y: 0 }, 6.25);
+      }
+      const kidding = sysWindow('big', '[ SYSTEM ]', 'Just kidding 😄<br><em>let me fix that.</em>');
+      gsap.set(kidding, { autoAlpha: 0, scale: .8, xPercent: -50, yPercent: -50 });
+      tl.to(kidding, { autoAlpha: 1, scale: 1, duration: .3, ease: 'back.out(1.8)' }, 6.3);
+
+      /* ---- 3) fix it (7 → 11s) ---- */
+      const falling = wins.concat([kidding, ed]);
+      if (reduceMotion) {
+        tl.to(falling, { autoAlpha: 0, duration: .4 }, 7);
+      } else {
+        tl.to(falling, { y: () => H + 400, rotation: () => gsap.utils.random(-40, 40), duration: .75, ease: 'power2.in', stagger: .012 }, 7);
+      }
+      const fix = editor('style.css — fixed', 'fix');
+      const pre2 = $('pre', fix);
+      const state2 = $('.ed-state', fix);
+      $('.enter', fix).remove();
+      gsap.set(fix, { autoAlpha: 0, scale: .92, xPercent: -50, yPercent: -50 });
+      tl.to(fix, { autoAlpha: 1, scale: 1, duration: .35, ease: 'power3.out' }, 7.45)
+        .add(typeInto(pre2, fixedCss, 2.6, { ticks: true, caret: true }), 7.7)
+        .call(() => {
+          state2.textContent = '✓ 0 problems'; state2.className = 'ed-state good';
+          count.textContent = '✓ 0 problems'; count.classList.add('ok');
+        }, null, 10.4)
+        .to(fix, { scale: 1.02, duration: .15, yoyo: true, repeat: 1 }, 10.4);
+
+      /* ---- 4) boot to port (11 → 16s) ---- */
+      const boot = sysWindow('boot', '[ SYSTEM ] BOOTING PORTFOLIO', [
+        '<span class="bl"><span class="hl">$</span> npm run dev</span>',
+        '<span class="bl">› compiling style.css ........... <span class="ok">done</span></span>',
+        '<span class="bl">› optimising 25 images .......... <span class="ok">done</span></span>',
+        '<span class="bl">› loading 11 projects ........... <span class="ok">done</span></span>',
+        '<span class="bl">› connecting to port 5500 ....... <span class="ok">ok</span></span>',
+        '<div class="stat"><div><span>NAME</span> <b>Kan</b></div><div><span>ROLE</span> <b>Web Developer</b></div>' +
+        '<div><span>STUDY</span> <b>Year 2 · CS @ RSU</b></div><div><span>GPAX</span> <b>3.68</b></div>' +
+        '<div><span>SKILLS</span> <b>47</b></div><div><span>STATUS</span> <b>Open to internship</b></div></div>',
+        '<span class="bl"><span class="ok">✓ ready on</span> <span class="hl">http://localhost:5500</span></span>',
+        '<div class="bar"><i></i></div><div class="pct"><span>loading</span><span class="p">0%</span></div>'
+      ].join(''));
+      gsap.set(boot, { autoAlpha: 0, scale: .92, xPercent: -50, yPercent: -50 });
+      const lines = $$('.bl', boot);
+      const pct = { v: 0 };
+      tl.to([fix, count], { autoAlpha: 0, scale: .95, duration: .3 }, 11)
+        .to(boot, { autoAlpha: 1, scale: 1, duration: .35, ease: 'power3.out' }, 11.1);
+      [11.4, 11.95, 12.5, 13.05, 13.6].forEach((at, i) => tl.to(lines[i], { autoAlpha: 1, duration: .15 }, at));
+      tl.to($('.stat', boot), { autoAlpha: 1, duration: .3 }, 14.05)
+        .to(lines[5], { autoAlpha: 1, duration: .15 }, 15.1)
+        .to($('.bar i', boot), { width: '100%', duration: 4.4, ease: 'power1.inOut' }, 11.3)
+        .to(pct, { v: 100, duration: 4.4, ease: 'power1.inOut', onUpdate: () => { $('.pct .p', boot).textContent = Math.round(pct.v) + '%'; } }, 11.3)
+        .call(() => { $('.pct span', boot).textContent = 'ready'; }, null, 15.7);
+
+      /* ---- 5) LOADING SUCCESS (16 → 19s) ---- */
+      const lvl = document.createElement('div');
+      lvl.className = 'lvl';
+      lvl.innerHTML = '<div class="lvl-t">LOADING SUCCESS</div><div class="lvl-s">✓ novterss.github.io · online</div>';
+      stage.appendChild(lvl);
+      gsap.set(lvl, { xPercent: -50, yPercent: -50 });
+      tl.to(boot, { autoAlpha: 0, scale: .7, y: -40, duration: .4, ease: 'power3.in' }, 16)
+        .to(flash, { opacity: 1, duration: .35, ease: 'power2.in' }, 16.15)
+        .call(() => { css.media = 'all'; root.classList.remove('xr-raw'); window.scrollTo(0, 0); }, null, 16.5)
+        .fromTo(lvl, { autoAlpha: 0, scale: reduceMotion ? 1 : 1.35 }, { autoAlpha: 1, scale: 1, duration: .45, ease: 'power3.out' }, 16.45)
+        .to(lvl, { autoAlpha: 0, scale: reduceMotion ? 1 : .96, duration: .5, ease: 'power2.in' }, 17.55)
+        .to(flash, { opacity: 0, duration: 1.1, ease: 'power2.out' }, 17.7)
+        .call(() => { heroDone = true; heroEntrance(); }, null, 17.8)
+        .to(hud, { autoAlpha: 0, duration: .3 }, 18.3)
+        .to({}, { duration: .1 }, 18.9);
+    }
+
+    api.timeline = () => tl;
+    api.start = function () {
+      if (root.classList.contains('xr-on')) run();
+    };
+    api.skip = function () {
+      if (api.running) finish();
+    };
+    api.replay = function () {
+      if (api.running || !hasGsap) return;
+      window.scrollTo(0, 0);
+      root.classList.add('xr-on', 'xr-raw', 'xr-code');
+      root.classList.remove('xr-xray');
+      css.media = 'not all';
+      requestAnimationFrame(run);
+    };
+    return api;
+  })();
+
+  /* ---------------------------------------------------------- intro router */
+  const intro = {
+    get running() { return xr.running || ci.running; },
+    skip() { xr.skip(); ci.skip(); },
+    replay(mode) {
+      if (intro.running || !hasGsap) return;
+      closeLightbox();
+      closeCmdk(false);
+      setMenu(false);
+      if (mode === 'xray') xr.replay(); else ci.replay();
+    }
+  };
+  $('#xrSkip').addEventListener('click', () => intro.skip());
+  $('#replayIntro').addEventListener('click', () => intro.replay('code'));
+  window.__xr = xr; // debugging hooks
+  window.__ci = ci;
+
+  /* ------------------------------------------------- console easter egg */
+  const EMAIL_ADDR = 'naphatcharakan.p68@rsu.ac.th';
+  window.kan = {
+    hire() {
+      console.log('%c📬 Let\'s talk!', 'font:700 16px Inter,sans-serif;color:#2563eb');
+      console.log('Email : ' + EMAIL_ADDR);
+      console.log('CV    : ' + new URL('cv.html', location.href).href);
+      console.log('GitHub: https://github.com/novterss');
+      return 'Thanks for stopping by — Kan 🙌';
+    },
+    intro(mode) { intro.replay(mode === 'xray' ? 'xray' : 'code'); return 'replaying ' + (mode === 'xray' ? 'X-ray' : 'code') + ' intro…'; },
+    about: 'Naphatcharakan (Kan) · CS @ Rangsit University · Web Developer'
+  };
+  console.log('%c<Kub/>', 'font:700 34px "JetBrains Mono",monospace;color:#2563eb;text-shadow:0 0 12px rgba(56,189,248,.6)');
+  console.log('%c👋 Hiring? type %ckan.hire()%c — or replay the intro with %ckan.intro()',
+    'font:500 13px Inter,sans-serif;color:#64748b', 'font:600 13px monospace;color:#0ea5e9', 'font:500 13px Inter,sans-serif;color:#64748b',
+    'font:600 13px monospace;color:#0ea5e9');
+
 
   /* -------------------------------------------------------------- keyboard */
   document.addEventListener('keydown', e => {
@@ -684,9 +1020,9 @@
       if (cmdk.hidden) openCmdk(); else closeCmdk();
       return;
     }
-    if (xr.running && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) {
+    if (intro.running && (e.key === 'Escape' || (xr.running && (e.key === 'Enter' || e.key === ' ')))) {
       e.preventDefault();
-      xr.skip();
+      intro.skip();
       return;
     }
     if (e.key === 'Escape') {
@@ -700,10 +1036,10 @@
   initReveals();
   if (root.classList.contains('xr-on')) {
     if (hasGsap) {
-      requestAnimationFrame(() => xr.start());
+      requestAnimationFrame(() => (root.classList.contains('xr-xray') ? xr : ci).start());
     } else {
       $('#main-css').media = 'all';
-      root.classList.remove('xr-on');
+      root.classList.remove('xr-on', 'xr-raw', 'xr-code', 'xr-xray');
       clearTimeout(window.__xrFailsafe);
     }
   } else {

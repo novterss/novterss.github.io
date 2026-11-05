@@ -2175,3 +2175,9 @@ img {
   cursor: default;
   pointer-events: none;
 }
+
+.proj-logo-contain {
+  object-fit: contain;
+  padding: 6px;
+  background: #fff;
+}

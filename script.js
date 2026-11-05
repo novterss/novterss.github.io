@@ -806,8 +806,9 @@
       return w;
     }
 
-    // ?errors=os → error windows imitating different systems (generic look, no real logos)
-    const errStyle = /[?&]errors=os(?:&|$)/.test(location.search) ? 'os' : 'red';
+    // default: error windows imitating different systems (generic look, no real logos)
+    // ?errors=red → glowing red system windows instead
+    const errStyle = /[?&]errors=red(?:&|$)/.test(location.search) ? 'red' : 'os';
     const strip = s => s.replace(/<[^>]+>/g, '');
     const OS_KINDS = ['win', 'win', 'mac', 'code', 'crash', 'term'];
     const OS_SIZE = { win: [330, 150], mac: [300, 170], code: [360, 96], crash: [300, 200], term: [380, 140] };

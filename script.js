@@ -866,31 +866,59 @@
         .to(enter, { scale: .86, duration: .08, yoyo: true, repeat: 1 }, 9.75);
 
       /* ---- 2) error windows pile up until the screen is fully covered (10 → 15s) ---- */
-      const cols = small ? 2 : 5;
-      const rows = small ? 6 : 5;
-      const n = cols * rows;
-      const cellW = W / cols;
-      const cellH = H / rows;
-      const ww = Math.round(cellW * 1.38);
-      const wh = Math.round(cellH * 1.6);
+      // Scatter windows at random spots and angles until every sample point of the
+      // viewport is covered, so nothing behind them shows through.
+      const baseW = small ? 230 : 330;
+      const baseH = small ? 118 : 150;
+      const STEP = small ? 12 : 16;
+      const pts = [];
+      for (let px = 0; px <= W; px += STEP) for (let py = 0; py <= H; py += STEP) pts.push([Math.min(px, W - 1), Math.min(py, H - 1)]);
+      let open = pts.slice();
+      const placed = [];
+      const maxWins = small ? 70 : 110;
+      const angle = () => {
+        const r = Math.random();
+        if (reduceMotion) return gsap.utils.random(-6, 6);
+        if (r < .12) return gsap.utils.random(160, 200);          // upside down
+        if (r < .30) return gsap.utils.random(-90, 90);           // steep tilt
+        return gsap.utils.random(-28, 28);                        // casual tilt
+      };
+      while (open.length && placed.length < maxWins) {
+        const [cx, cy] = open[Math.floor(Math.random() * open.length)];
+        const s = gsap.utils.random(.95, 1.3);
+        const w = baseW * s, h = baseH * s;
+        const rot = angle();
+        const x = cx + gsap.utils.random(-w * .25, w * .25);
+        const y = cy + gsap.utils.random(-h * .25, h * .25);
+        const rad = rot * Math.PI / 180, cos = Math.cos(-rad), sin = Math.sin(-rad);
+        const hw = w / 2 - 6, hh = h / 2 - 6;
+        open = open.filter(([px, py]) => {
+          const dx = px - x, dy = py - y;
+          const lx = dx * cos - dy * sin, ly = dx * sin + dy * cos;
+          return !(Math.abs(lx) <= hw && Math.abs(ly) <= hh);
+        });
+        placed.push({ x, y, w, h, rot });
+      }
+      const n = placed.length;
       const wins = [];
-      for (let i = 0; i < n; i++) {
+      // dark backing that fades in under the pile once it is nearly complete,
+      // so even a pinhole between tilted windows never shows the page
+      const backing = document.createElement('div');
+      Object.assign(backing.style, { position: 'absolute', inset: '0', background: '#050e22', opacity: '0' });
+      stage.insertBefore(backing, stage.querySelector('.sys.err'));
+      tl.to(backing, { opacity: 1, duration: .5 }, 13.2);
+      placed.forEach((p, i) => {
         const [msg, loc] = errors[i % errors.length];
         const w = sysWindow('err', '[ ' + titles[i % titles.length] + ' ]', msg, loc);
-        const col = i % cols;
-        const row = Math.floor(i / cols);
         gsap.set(w, {
-          width: ww, height: wh,
-          left: col * cellW + cellW / 2 - ww / 2 + gsap.utils.random(-8, 8),
-          top: row * cellH + cellH / 2 - wh / 2 + gsap.utils.random(-8, 8),
-          rotation: reduceMotion ? 0 : gsap.utils.random(-4, 4),
-          autoAlpha: 0, scale: .88
+          width: p.w, height: p.h, left: p.x - p.w / 2, top: p.y - p.h / 2,
+          rotation: p.rot, autoAlpha: 0, scale: .8
         });
         wins.push(w);
-        const at = 10 + 3.5 * Math.pow(i / (n - 1), 0.8);
-        tl.to(w, { autoAlpha: 1, scale: 1, duration: .18, ease: 'back.out(1.8)' }, at)
-          .call(() => { count.textContent = '⚠ ' + Math.round(6 + (i + 1) / n * 41) + ' problems'; }, null, at);
-      }
+        const at = 10 + 3.5 * Math.pow(i / Math.max(n - 1, 1), 0.85);
+        tl.to(w, { autoAlpha: 1, scale: 1, duration: .16, ease: 'back.out(2)' }, at)
+          .call(() => { count.textContent = '⚠ ' + (6 + i + 1) + ' problems'; }, null, at);
+      });
       tl.to(count, { autoAlpha: 1, duration: .2 }, 10);
       if (!reduceMotion) {
         tl.to(stage, { x: 'random(-7, 7)', y: 'random(-5, 5)', duration: .05, repeat: 15, yoyo: true, ease: 'none' }, 13.1)
@@ -902,6 +930,7 @@
 
       /* ---- 3) fix it (15 → 19s) ---- */
       const falling = wins.concat([kidding, ed]);
+      tl.to(backing, { opacity: 0, duration: .5 }, 15.1);
       if (reduceMotion) {
         tl.to(falling, { autoAlpha: 0, duration: .4 }, 15);
       } else {

@@ -1,16 +1,35 @@
 // language toggle
 let currentLang = 'en';
 
+function safeGet(key) {
+  try { return localStorage.getItem(key); } catch (e) { return null; }
+}
+
+function safeSet(key, value) {
+  try { localStorage.setItem(key, value); } catch (e) { /* storage unavailable */ }
+}
+
 function applyLang(lang) {
   currentLang = lang;
   document.querySelectorAll('[data-en]').forEach(el => {
-    el.textContent = el.getAttribute('data-' + lang);
+    const value = el.getAttribute('data-' + lang);
+    if (value === null) return;
+    // a few translations carry inline markup such as <strong>
+    if (value.includes('<')) el.innerHTML = value;
+    else el.textContent = value;
   });
+  document.documentElement.lang = lang;
   document.getElementById('langLabel').textContent = lang === 'en' ? 'TH' : 'EN';
+  const cvBtn = document.getElementById('cvDownloadBtn');
+  if (cvBtn) cvBtn.href = cvBtn.getAttribute('data-cv-' + lang);
+  safeSet('lang', lang);
 }
 
 document.getElementById('langToggle').addEventListener('click', () => {
   applyLang(currentLang === 'en' ? 'th' : 'en');
+  // restart the typewriter so it never slices a word from the other language
+  charIndex = 0;
+  deleting = false;
 });
 
 // typewriter effect
@@ -42,6 +61,7 @@ function typeLoop() {
   }
   setTimeout(typeLoop, deleting ? 60 : 100);
 }
+applyLang(safeGet('lang') === 'th' ? 'th' : 'en');
 typeLoop();
 
 // navbar scroll
@@ -94,22 +114,6 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// currently building status
-function updateNowStatus() {
-  // Now static in HTML
-  return;
-}
-updateNowStatus();
-
-// Update "Currently" on language switch
-const _origApply = applyLang;
-applyLang = lang => {
-  _origApply(lang);
-  updateNowStatus();
-  const cvBtn = document.getElementById('cvDownloadBtn');
-  if (cvBtn) cvBtn.href = cvBtn.getAttribute('data-cv-' + lang);
-};
-
 // back to top
 const btt = document.getElementById('backToTop');
 window.addEventListener('scroll', () => btt.classList.toggle('show', window.scrollY > 400));
@@ -124,11 +128,11 @@ function applyTheme(isDark) {
   darkToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
   darkToggleBtn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
   if (themeColorMeta) themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#0ea5e9');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  safeSet('theme', isDark ? 'dark' : 'light');
 }
 
 // Load saved preference
-const savedTheme = localStorage.getItem('theme');
+const savedTheme = safeGet('theme');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 applyTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
 
@@ -155,25 +159,30 @@ const lightboxClose = document.querySelector('.lightbox-close');
 document.querySelectorAll('.proj-screenshot-img, .afs-photo-img').forEach(img => {
   img.addEventListener('click', () => {
     lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
     lightbox.classList.add('show');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
   });
 });
 
+function closeLightbox() {
+  lightbox.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
 // Close lightbox on clicking close button
 if (lightboxClose) {
-  lightboxClose.addEventListener('click', () => {
-    lightbox.classList.remove('show');
-    document.body.style.overflow = '';
-  });
+  lightboxClose.addEventListener('click', closeLightbox);
 }
 
 // Close lightbox on clicking outside the image
 if (lightbox) {
   lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      lightbox.classList.remove('show');
-      document.body.style.overflow = '';
-    }
+    if (e.target === lightbox) closeLightbox();
   });
 }
+
+// Close lightbox with the Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lightbox && lightbox.classList.contains('show')) closeLightbox();
+});

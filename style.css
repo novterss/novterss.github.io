@@ -2151,3 +2151,27 @@ img {
 .afs-photo-img {
   cursor: pointer;
 }
+
+.course-badge {
+  background: #e0e7ff;
+  color: #4338ca;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.private-badge {
+  background: #f1f5f9;
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.proj-link-private {
+  background: transparent;
+  color: var(--text);
+  border: 1px dashed var(--border);
+  cursor: default;
+  pointer-events: none;
+}

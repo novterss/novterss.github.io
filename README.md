@@ -31,7 +31,7 @@ Welcome to the source code of my personal portfolio website, deployed via **GitH
 - **🌐 Bilingual (EN / TH):** Fully integrated English and Thai translations that can be toggled without reloading the page.
 - **📱 Fully Responsive:** Carefully crafted with responsive design principles to ensure a perfect layout across all devices (Desktop, Tablet, Mobile).
 - **🎨 Modern UI/UX:** Features smooth scrolling, floating navigation bars, typing animation effects, and sleek CSS transitions.
-- **💻 Code intro:** On the first visit the page opens as raw HTML, an editor types broken CSS, a flood of error windows takes over, then the CSS gets fixed, the site boots "to a port" and shows LOADING SUCCESS. Add `?intro` to the URL to replay it, or use the footer button.
+- **💻 Code intro:** On the first visit the page opens as raw HTML, an editor types broken CSS, a flood of error windows takes over, then the CSS gets fixed, the site boots "to a port" and shows LOADING SUCCESS. Add `?intro` to the URL to replay it, or use the footer button. Error windows glow red by default; add `&errors=os` for a mix of classic desktop, Mac-style, editor, crashed-tab and terminal errors.
 - **🩻 X-ray intro (alternative):** `?intro=xray` plays the browser rendering pipeline instead — Parse, Style, Layout, Paint and a 3D Composite of the layers.
 - **🥚 Console easter egg:** open DevTools and type `kan.hire()`.
 - **⌨️ Command palette:** Press `Ctrl + K` to jump to any section or project, switch theme or language, copy the email or download the CV.

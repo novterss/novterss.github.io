@@ -6,22 +6,25 @@
   <title>CV – Naphatcharakan Phatchaiphongsa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/jpeg" href="kan.jpg" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --primary: #0ea5e9;
+      --primary: #2563eb;
       --accent:  #6366f1;
-      --text:    #0f172a;
+      --text:    #0b1220;
       --mid:     #475569;
       --light:   #94a3b8;
-      --border:  #e2e8f0;
-      --bg:      #f8fafc;
+      --border:  #e3e9f2;
+      --bg:      #edf3fb;
+      --grad:    linear-gradient(120deg, #0ea5e9 0%, #2563eb 50%, #6366f1 100%);
     }
 
     body {
-      font-family: 'Inter', Arial, sans-serif;
+      font-family: 'Inter', 'IBM Plex Sans Thai', Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       font-size: 13px;
@@ -242,19 +245,43 @@
       .no-print { display: none !important; }
       a { color: inherit !important; }
     }
+    /* ── Redesign accents ── */
+    .page { position: relative; border-radius: 18px; overflow: hidden; }
+    .page::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--grad); }
+    .cv-name-block h1 { font-family: 'Space Grotesk', 'Inter', sans-serif; letter-spacing: -0.03em; font-size: 26px; }
+    .cv-section-title { font-family: 'JetBrains Mono', monospace; letter-spacing: 1.4px; color: var(--primary); }
+    .cv-header { border-bottom: 0; position: relative; }
+    .cv-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--grad); border-radius: 2px; }
+    .proj-title { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+    .topbar { position: sticky; top: 0; z-index: 10; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+      padding: 14px 16px; background: rgba(255,255,255,.85); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border); }
+    .tb-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px;
+      font: 600 14px 'Inter', sans-serif; cursor: pointer; text-decoration: none; border: 1px solid var(--border); background: #fff; color: var(--text); }
+    .tb-btn.primary { border: 0; color: #fff; background: var(--grad); box-shadow: 0 10px 26px -10px rgba(37,99,235,.6); }
+    .tb-hint { width: 100%; text-align: center; font-size: 12px; color: #64748b; }
+    @media (max-width: 860px) {
+      .page { width: auto; min-height: 0; margin: 16px; padding: 22px 18px; }
+      .cv-header, .cv-entry { flex-direction: column; }
+      .cv-contacts, .cv-entry-right { text-align: left; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .lang-row { flex-wrap: wrap; }
+      .topbar { position: static; gap: 8px; padding: 12px; }
+      .tb-btn { height: 36px; padding: 0 14px; font-size: 13px; }
+      .tb-hint { display: none; }
+      .cv-contacts { align-items: flex-start; }
+    }
+    @media print { .topbar { display: none !important; } .page { border-radius: 0; } .page::before { display: none; } }
   </style>
 </head>
 <body>
 
-<!-- Print button (hidden when printing) -->
-<div class="no-print" style="text-align:center;padding:1rem 0;background:#f1f5f9;border-bottom:1px solid #e2e8f0;">
-  <button onclick="window.print()"
-    style="background:#0ea5e9;color:#fff;border:none;padding:0.6rem 1.8rem;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">
-    🖨️ Print / Save as PDF
-  </button>
-  <p style="margin-top:0.4rem;font-size:12px;color:#64748b;">
-    กด <strong>Ctrl+P</strong> → เลือก <strong>"Save as PDF"</strong> → บันทึกเป็น <code>cv.pdf</code>
-  </p>
+<!-- Top bar (hidden when printing) -->
+<div class="topbar no-print">
+  <a class="tb-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+  <button class="tb-btn primary" onclick="window.print()"><i class="fas fa-print"></i> Print / Save as PDF</button>
+  <a class="tb-btn" href="Naphatcharakan_Engform.pdf" download><i class="fas fa-file-arrow-down"></i> Download PDF</a>
+  <p class="tb-hint">กด <strong>Ctrl+P</strong> → เลือก <strong>"Save as PDF"</strong> เพื่อบันทึกหน้านี้เป็นไฟล์ PDF</p>
 </div>
 
 <div class="page">
@@ -279,7 +306,7 @@
     <div class="cv-section-title">Objective</div>
     <p style="font-size:11.5px;color:#475569;line-height:1.7;">
       2nd-year Computer Science student at Rangsit University (GPAX 3.68) with a strong passion for web development.
-      Builds and runs real full-stack products with Next.js, React, TypeScript, PostgreSQL and Supabase, including a streaming platform with 40k+ users.
+      Builds and runs real full-stack products with Next.js, React, TypeScript, PostgreSQL and Supabase, including a streaming platform with 40k+ users and e-commerce sites for clients.
       Previously interned as a Web Developer at <strong>Trinity Securities Company Limited (บล.ทรีนีตี้)</strong> from 22 May to 15 August 2026,
       and now looking for a new web development internship.
     </p>

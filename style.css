@@ -544,6 +544,10 @@ kbd {
   }
 }
 
+.hero-text {
+  min-width: 0;
+}
+
 .hero-inner {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
@@ -608,7 +612,7 @@ kbd {
 .hero-name {
   font-family: var(--f-display);
   font-weight: 700;
-  font-size: clamp(2.6rem, 7.4vw, 6rem);
+  font-size: clamp(2.6rem, 6.6vw, 5.3rem);
   line-height: .95;
   letter-spacing: -.045em;
   margin-bottom: 14px;
@@ -2655,6 +2659,7 @@ a.info-row:hover {
 .lightbox.show {
   opacity: 1;
   visibility: visible;
+  transition: opacity .3s, visibility 0s;
 }
 
 .lightbox-content {
@@ -3083,6 +3088,10 @@ a.info-row:hover {
     text-align: center;
   }
 
+  .hero-name {
+    font-size: clamp(2rem, 10.4vw, 5rem);
+  }
+
   .hero-desc {
     margin-left: auto;
     margin-right: auto;
@@ -3210,6 +3219,11 @@ a.info-row:hover {
   .footer-inner {
     flex-direction: column;
     text-align: center;
+  }
+
+  .f-right {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

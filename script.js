@@ -20,7 +20,8 @@
   }
 
   if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-  if (hasGsap && !reduceMotion) root.classList.add('anim');
+  // reveal-on-scroll styles only when ScrollTrigger is there to reveal them
+  if (hasGsap && window.ScrollTrigger && !reduceMotion) root.classList.add('anim');
 
   /* ------------------------------------------------------------------ toast */
   const toastEl = $('#toast');
@@ -153,7 +154,7 @@
     lightboxImg.alt = alt || '';
     lightbox.classList.add('show');
     document.body.style.overflow = 'hidden';
-    $('.lightbox-close').focus();
+    requestAnimationFrame(() => $('.lightbox-close').focus());
   }
   function closeLightbox() {
     if (!lightbox.classList.contains('show')) return;
@@ -495,6 +496,7 @@
       root.classList.remove('xr-on', 'xr-raw', 'xr-mono', 'xr-boxes', 'xr-paint', 'xr-3d', 'xr-code', 'xr-xray');
       root.style.overflow = '';
       root.style.background = '';
+      if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
       document.body.style.perspective = '';
       if (hasGsap) {
         gsap.killTweensOf([app].concat(LAYERS));
@@ -548,7 +550,9 @@
     function run() {
       if (!hasGsap) { cleanup(); return; }
       api.running = true;
+      clearTimeout(window.__xrFailsafe);
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.__xrFailsafe = setTimeout(() => { if (window.__xrRestore) window.__xrRestore(); api.running = false; }, 45000);
       window.scrollTo(0, 0);
       root.style.overflow = 'hidden';
       log.innerHTML = '';
@@ -558,7 +562,6 @@
       const nodes = document.getElementsByTagName('*').length;
       const isMobile = window.innerWidth < 720;
       const counter = { n: 0 };
-      clearTimeout(window.__xrFailsafe);
       root.classList.add('xr-raw');
       tl = gsap.timeline({ id: 'xr', onComplete: finish });
 
@@ -846,6 +849,7 @@
       css.media = 'all';
       root.classList.remove('xr-on', 'xr-raw', 'xr-code', 'xr-xray');
       root.style.overflow = '';
+      if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
       gsap.set(hud, { clearProps: 'all' });
       api.running = false;
       safeSet('sessionStorage', 'xr-played', '1');
@@ -865,6 +869,7 @@
       heroDone = false;
       clearTimeout(window.__xrFailsafe);
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.__xrFailsafe = setTimeout(() => { if (window.__xrRestore) window.__xrRestore(); api.running = false; }, 45000);
       window.scrollTo(0, 0);
       root.style.overflow = 'hidden';
       root.classList.add('xr-raw');

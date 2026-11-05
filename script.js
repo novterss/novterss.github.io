@@ -678,7 +678,7 @@
   /* ==================================================================
      Code intro (default): raw HTML → typo'd CSS → error flood →
      "just kidding" → fixed CSS → boot to port → LOADING SUCCESS
-     Timing: 4s + 3s + 4s + 5s + 3s = 19s
+     Timing: 6s raw + 4s typing + 5s errors + 4s fix + 5s boot + 3s success = 27s
      ================================================================== */
   const ci = (function () {
     const css = $('#main-css');
@@ -853,71 +853,74 @@
 
       tl = gsap.timeline({ id: 'ci', onComplete: finish });
 
-      /* ---- 1) raw HTML + typo'd CSS (0 → 4s) ---- */
+      /* ---- 1) raw HTML only (0 → 6s), then an editor types broken CSS (6 → 10s) ---- */
       const ed = editor('style.css');
       const pre = $('pre', ed);
       const state = $('.ed-state', ed);
       const enter = $('.enter', ed);
       gsap.set(ed, { autoAlpha: 0, y: 30 });
-      tl.to(ed, { autoAlpha: 1, y: 0, duration: .4, ease: 'power3.out' }, .45)
-        .add(typeInto(pre, wrongCss(), 2.75, { squiggle: true, caret: true }), .7)
-        .call(() => { state.textContent = '6 problems'; state.className = 'ed-state bad'; }, null, 3.5)
-        .to(enter, { autoAlpha: 1, duration: .15 }, 3.5)
-        .to(enter, { scale: .86, duration: .08, yoyo: true, repeat: 1 }, 3.85);
+      tl.to(ed, { autoAlpha: 1, y: 0, duration: .4, ease: 'power3.out' }, 6)
+        .add(typeInto(pre, wrongCss(), 3, { squiggle: true, caret: true }), 6.3)
+        .call(() => { state.textContent = '6 problems'; state.className = 'ed-state bad'; }, null, 9.4)
+        .to(enter, { autoAlpha: 1, duration: .15 }, 9.4)
+        .to(enter, { scale: .86, duration: .08, yoyo: true, repeat: 1 }, 9.75);
 
-      /* ---- 2) error flood (4 → 7s) ---- */
-      const n = small ? 10 : 26;
-      const ww = small ? 250 : 320;
+      /* ---- 2) error windows pile up until the screen is fully covered (10 → 15s) ---- */
       const cols = small ? 2 : 5;
-      const rows = Math.ceil(n / cols);
-      const wh = small ? 110 : 120;
+      const rows = small ? 6 : 5;
+      const n = cols * rows;
+      const cellW = W / cols;
+      const cellH = H / rows;
+      const ww = Math.round(cellW * 1.38);
+      const wh = Math.round(cellH * 1.6);
       const wins = [];
-      const spanX = Math.max(0, W - ww - (small ? 16 : 40));
-      const spanY = Math.max(0, H - wh - (small ? 120 : 140));
       for (let i = 0; i < n; i++) {
         const [msg, loc] = errors[i % errors.length];
         const w = sysWindow('err', '[ ' + titles[i % titles.length] + ' ]', msg, loc);
         const col = i % cols;
         const row = Math.floor(i / cols);
-        const jitter = () => gsap.utils.random(-18, 18);
-        const x = (small ? 8 : 20) + (cols > 1 ? col * spanX / (cols - 1) : 0) + row * 10 + jitter();
-        const y = (small ? 52 : 64) + (rows > 1 ? row * spanY / (rows - 1) : 0) + (col % 2) * 26 + jitter();
-        gsap.set(w, { left: Math.min(Math.max(4, x), W - ww - 4), top: Math.max(44, y), autoAlpha: 0, scale: .85 });
+        gsap.set(w, {
+          width: ww, height: wh,
+          left: col * cellW + cellW / 2 - ww / 2 + gsap.utils.random(-8, 8),
+          top: row * cellH + cellH / 2 - wh / 2 + gsap.utils.random(-8, 8),
+          rotation: reduceMotion ? 0 : gsap.utils.random(-4, 4),
+          autoAlpha: 0, scale: .88
+        });
         wins.push(w);
-        const at = 4 + 2.15 * Math.pow(i / n, 1.6);
-        tl.to(w, { autoAlpha: 1, scale: 1, duration: .14, ease: 'back.out(2)' }, at)
+        const at = 10 + 3.5 * Math.pow(i / (n - 1), 0.8);
+        tl.to(w, { autoAlpha: 1, scale: 1, duration: .18, ease: 'back.out(1.8)' }, at)
           .call(() => { count.textContent = '⚠ ' + Math.round(6 + (i + 1) / n * 41) + ' problems'; }, null, at);
       }
-      tl.to(count, { autoAlpha: 1, duration: .2 }, 4);
+      tl.to(count, { autoAlpha: 1, duration: .2 }, 10);
       if (!reduceMotion) {
-        tl.to(stage, { x: 'random(-7, 7)', y: 'random(-5, 5)', duration: .05, repeat: 17, yoyo: true, ease: 'none' }, 5.3)
-          .set(stage, { x: 0, y: 0 }, 6.25);
+        tl.to(stage, { x: 'random(-7, 7)', y: 'random(-5, 5)', duration: .05, repeat: 15, yoyo: true, ease: 'none' }, 13.1)
+          .set(stage, { x: 0, y: 0 }, 13.9);
       }
       const kidding = sysWindow('big', '[ SYSTEM ]', 'Just kidding 😄<br><em>let me fix that.</em>');
       gsap.set(kidding, { autoAlpha: 0, scale: .8, xPercent: -50, yPercent: -50 });
-      tl.to(kidding, { autoAlpha: 1, scale: 1, duration: .3, ease: 'back.out(1.8)' }, 6.3);
+      tl.to(kidding, { autoAlpha: 1, scale: 1, duration: .3, ease: 'back.out(1.8)' }, 14.1);
 
-      /* ---- 3) fix it (7 → 11s) ---- */
+      /* ---- 3) fix it (15 → 19s) ---- */
       const falling = wins.concat([kidding, ed]);
       if (reduceMotion) {
-        tl.to(falling, { autoAlpha: 0, duration: .4 }, 7);
+        tl.to(falling, { autoAlpha: 0, duration: .4 }, 15);
       } else {
-        tl.to(falling, { y: () => H + 400, rotation: () => gsap.utils.random(-40, 40), duration: .75, ease: 'power2.in', stagger: .012 }, 7);
+        tl.to(falling, { y: () => H + 500, rotation: () => gsap.utils.random(-40, 40), duration: .8, ease: 'power2.in', stagger: .01 }, 15);
       }
       const fix = editor('style.css — fixed', 'fix');
       const pre2 = $('pre', fix);
       const state2 = $('.ed-state', fix);
       $('.enter', fix).remove();
       gsap.set(fix, { autoAlpha: 0, scale: .92, xPercent: -50, yPercent: -50 });
-      tl.to(fix, { autoAlpha: 1, scale: 1, duration: .35, ease: 'power3.out' }, 7.45)
-        .add(typeInto(pre2, fixedCss, 2.6, { ticks: true, caret: true }), 7.7)
+      tl.to(fix, { autoAlpha: 1, scale: 1, duration: .35, ease: 'power3.out' }, 15.45)
+        .add(typeInto(pre2, fixedCss, 2.6, { ticks: true, caret: true }), 15.7)
         .call(() => {
           state2.textContent = '✓ 0 problems'; state2.className = 'ed-state good';
           count.textContent = '✓ 0 problems'; count.classList.add('ok');
-        }, null, 10.4)
-        .to(fix, { scale: 1.02, duration: .15, yoyo: true, repeat: 1 }, 10.4);
+        }, null, 18.4)
+        .to(fix, { scale: 1.02, duration: .15, yoyo: true, repeat: 1 }, 18.4);
 
-      /* ---- 4) boot to port (11 → 16s) ---- */
+      /* ---- 4) boot to port (19 → 24s) ---- */
       const boot = sysWindow('boot', '[ SYSTEM ] BOOTING PORTFOLIO', [
         '<span class="bl"><span class="hl">$</span> npm run dev</span>',
         '<span class="bl">› compiling style.css ........... <span class="ok">done</span></span>',
@@ -933,30 +936,30 @@
       gsap.set(boot, { autoAlpha: 0, scale: .92, xPercent: -50, yPercent: -50 });
       const lines = $$('.bl', boot);
       const pct = { v: 0 };
-      tl.to([fix, count], { autoAlpha: 0, scale: .95, duration: .3 }, 11)
-        .to(boot, { autoAlpha: 1, scale: 1, duration: .35, ease: 'power3.out' }, 11.1);
-      [11.4, 11.95, 12.5, 13.05, 13.6].forEach((at, i) => tl.to(lines[i], { autoAlpha: 1, duration: .15 }, at));
-      tl.to($('.stat', boot), { autoAlpha: 1, duration: .3 }, 14.05)
-        .to(lines[5], { autoAlpha: 1, duration: .15 }, 15.1)
-        .to($('.bar i', boot), { width: '100%', duration: 4.4, ease: 'power1.inOut' }, 11.3)
-        .to(pct, { v: 100, duration: 4.4, ease: 'power1.inOut', onUpdate: () => { $('.pct .p', boot).textContent = Math.round(pct.v) + '%'; } }, 11.3)
-        .call(() => { $('.pct span', boot).textContent = 'ready'; }, null, 15.7);
+      tl.to([fix, count], { autoAlpha: 0, scale: .95, duration: .3 }, 19)
+        .to(boot, { autoAlpha: 1, scale: 1, duration: .35, ease: 'power3.out' }, 19.1);
+      [19.4, 19.95, 20.5, 21.05, 21.6].forEach((at, i) => tl.to(lines[i], { autoAlpha: 1, duration: .15 }, at));
+      tl.to($('.stat', boot), { autoAlpha: 1, duration: .3 }, 22.05)
+        .to(lines[5], { autoAlpha: 1, duration: .15 }, 23.1)
+        .to($('.bar i', boot), { width: '100%', duration: 4.4, ease: 'power1.inOut' }, 19.3)
+        .to(pct, { v: 100, duration: 4.4, ease: 'power1.inOut', onUpdate: () => { $('.pct .p', boot).textContent = Math.round(pct.v) + '%'; } }, 19.3)
+        .call(() => { $('.pct span', boot).textContent = 'ready'; }, null, 23.7);
 
-      /* ---- 5) LOADING SUCCESS (16 → 19s) ---- */
+      /* ---- 5) LOADING SUCCESS (24 → 27s) ---- */
       const lvl = document.createElement('div');
       lvl.className = 'lvl';
       lvl.innerHTML = '<div class="lvl-t">LOADING SUCCESS</div><div class="lvl-s">✓ novterss.github.io · online</div>';
       stage.appendChild(lvl);
       gsap.set(lvl, { xPercent: -50, yPercent: -50 });
-      tl.to(boot, { autoAlpha: 0, scale: .7, y: -40, duration: .4, ease: 'power3.in' }, 16)
-        .to(flash, { opacity: 1, duration: .35, ease: 'power2.in' }, 16.15)
-        .call(() => { css.media = 'all'; root.classList.remove('xr-raw'); window.scrollTo(0, 0); }, null, 16.5)
-        .fromTo(lvl, { autoAlpha: 0, scale: reduceMotion ? 1 : 1.35 }, { autoAlpha: 1, scale: 1, duration: .45, ease: 'power3.out' }, 16.45)
-        .to(lvl, { autoAlpha: 0, scale: reduceMotion ? 1 : .96, duration: .5, ease: 'power2.in' }, 17.55)
-        .to(flash, { opacity: 0, duration: 1.1, ease: 'power2.out' }, 17.7)
-        .call(() => { heroDone = true; heroEntrance(); }, null, 17.8)
-        .to(hud, { autoAlpha: 0, duration: .3 }, 18.3)
-        .to({}, { duration: .1 }, 18.9);
+      tl.to(boot, { autoAlpha: 0, scale: .7, y: -40, duration: .4, ease: 'power3.in' }, 24)
+        .to(flash, { opacity: 1, duration: .35, ease: 'power2.in' }, 24.15)
+        .call(() => { css.media = 'all'; root.classList.remove('xr-raw'); window.scrollTo(0, 0); }, null, 24.5)
+        .fromTo(lvl, { autoAlpha: 0, scale: reduceMotion ? 1 : 1.35 }, { autoAlpha: 1, scale: 1, duration: .45, ease: 'power3.out' }, 24.45)
+        .to(lvl, { autoAlpha: 0, scale: reduceMotion ? 1 : .96, duration: .5, ease: 'power2.in' }, 25.55)
+        .to(flash, { opacity: 0, duration: 1.1, ease: 'power2.out' }, 25.7)
+        .call(() => { heroDone = true; heroEntrance(); }, null, 25.8)
+        .to(hud, { autoAlpha: 0, duration: .3 }, 26.3)
+        .to({}, { duration: .1 }, 26.9);
     }
 
     api.timeline = () => tl;

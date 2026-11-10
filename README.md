@@ -64,7 +64,7 @@ novterss.github.io/
 ├── style.css               # All custom styling, themes, and animations
 ├── script.js               # Languages, themes, X-ray intro, command palette, animations
 ├── assets/img/             # Optimised WebP images used by the site
-├── *.jpg / *.png           # Project screenshots and personal assets
+├── kan.jpg                 # Profile photo (also used for link previews)
 └── *.pdf                   # Downloadable Resume/CV files (Eng & Thai)
 ```
 

@@ -43,7 +43,7 @@ Welcome to the source code of my personal portfolio website, deployed via **GitH
 
 Here are some of the key projects featured on the portfolio:
 - **Doseries:** A streaming platform with 40k+ users (Next.js 16, Prisma, PostgreSQL).
-- **Zen Downloader:** An Electron desktop app for downloading from 42+ streaming platforms.
+- **Zen Downloader:** A Tauri 2 + Rust desktop app (rebuilt from Electron) for downloading from 40+ short-drama platforms.
 - **Xenless Store:** A Thai PUBG account marketplace with real-time stock sync.
 - **EzPlayStoreTH:** A digital product marketplace with 4,000+ Discord members.
 - **CR Heavy:** An e-commerce platform for a heavy machinery parts importer.
